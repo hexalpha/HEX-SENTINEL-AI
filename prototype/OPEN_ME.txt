@@ -1,0 +1,13 @@
+HEX SENTINEL AI / PS01
+
+Extract all files in this ZIP into one folder, then double-click index.html.
+Use a current Chrome or Edge browser. Keep the JavaScript and CSS files beside index.html.
+
+Start with Electricity cutoff SMS. Try Message Analysis, Risk Explanation,
+Entity Graph and Reports. Then open Investment Wallet Site and play the
+synthetic replay. You can download a demonstration PDF and JSON report.
+
+The fixture cases, review claims, website events and model preview are fictional.
+The offline prototype sends no external requests. Use fictional training input.
+Browser storage varies by browser and may be cleared by the browser.
+
