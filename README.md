@@ -7,6 +7,12 @@ HEX SENTINEL AI brings scam messages, phishing links, suspicious websites and po
 
 [Download the 22-slide action plan](submission/HEX_SENTINEL_AI_Action_Plan.pptx) · [Download the offline prototype](submission/HEX_SENTINEL_AI_HTML_Prototype.zip) · [Local AI and data handling](#local-ai-and-data-handling) · [Website observation sandbox](#website-observation-sandbox)
 
+## Try the interactive demo
+
+[Open the demo file on GitHub](demo/HEX_SENTINEL_AI_Interactive_Demo.html), choose **Download raw file**, then open the downloaded HTML in Chrome or Edge. Everything needed for the offline UI is embedded in that one file. Use fictional data to try case intake, message analysis, risk explanations, entity graphs, sandbox replay, the assistant preview and report exports.
+
+[Browse all 29 wireframe screenshots](docs/Interface_Gallery.md) for the full screen-by-screen guide.
+
 ## Investigation command centre
 
 ![HEX SENTINEL AI offline command centre showing the synthetic case queue, intake trends, risk distribution and evidence activity](docs/images/command-centre.png)

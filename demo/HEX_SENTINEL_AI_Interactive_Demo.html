@@ -1,0 +1,1888 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0d0e14">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-HukT2TVDueje4RkvjYtxFLQEBXKVmMMeB2CUnQhdG/E=' 'sha256-q7a4Axlq9w1eQBFqtwFV2hSd7pdcZPvd28Z5FBiUCRQ=' 'sha256-d8jH5zpG8tTwA6SXeNMAkvAVSbSVIx7L/G+xq50Kls8=' 'sha256-9g1B13Y3SS7vnbVtyYe3tsPYGufw2tX49U/hx5GpiHY=' 'sha256-6ycNMXY4R5JrwTKcKG3IF6THWeRzggx176yQJSDgAxg=' 'sha256-g55/5BZ2MX4o5y5eo6IdJtOINEEHggvibo2ibjwNO5M=' 'sha256-4uuW2Qh1dLa113WLuCpQsL2FR+8/YpH+SEjcW5wwLGY=' 'sha256-QfsC7Qi0y9ZGQAgbGBUeDG60vqy25FR7KG9WbQu/bmI=' 'sha256-Ogmmr1QYqOy+4oxp1KeWOT5voNmkCH1haZIgq4nHhdg=' 'sha256-2KbdhebZNbcerywaFF3WQ4bvEQSWUU0vUTvEhHxCu6Y=' 'sha256-AoTHg7ZwqOIzwI7r9irP2E0OP6xu7KG/KiNGFbBxXvs=' 'sha256-cpb1J3ASRxq6f+nJz8EuU/C8u/JQ0HvZvg5a/KXn5b8='; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>HEX SENTINEL AI · Investigation workspace</title>
+<style>*{box-sizing:border-box}
+:root{--base:#0d0e14;--rail:#101117;--surface:#15161e;--panel:#191a24;--line:#2a2b37;--text:#f2f0f5;--muted:#a4a3b4;--quiet:#858699;--red:#f26488;--crimson:#d93866;--purple:#ad9df8;--green:#79dbc0;--amber:#f6bc7f;--radius:15px;--mono:"Cascadia Code","Consolas",monospace;--sans:"Segoe UI",system-ui,sans-serif}
+html{background:var(--base);color:var(--text);font:15px/1.55 var(--sans);scrollbar-color:#343543 #11121a}
+body{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button,a,input,select,textarea{outline-offset:4px}
+:focus-visible{outline:2px solid var(--purple)}
+button{cursor:pointer}
+a{color:var(--purple)}
+button:disabled{opacity:.5;cursor:wait}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{line-height:1.22;letter-spacing:-.035em}
+p{color:var(--muted)}
+strong{font-weight:650}
+.mono,code{font-family:var(--mono);word-break:break-word}
+.muted{color:var(--muted)} .quiet{color:var(--quiet)} .red{color:var(--red)} .green{color:var(--green)}
+.small{font-size:.81rem}.break{overflow-wrap:anywhere}.hidden{display:none!important}
+.skip{position:fixed;top:-70px;left:12px;padding:9px 16px;background:#161621;z-index:9}.skip:focus{top:12px}
+.shell{min-height:100vh;display:grid;grid-template-columns:232px minmax(0,1fr)}
+.rail{display:flex;flex-direction:column;position:sticky;top:0;height:100dvh;overflow-y:auto;border-right:1px solid #242531;background:var(--rail);padding:22px 14px 14px;z-index:3}
+.brand{display:flex;align-items:center;gap:10px;padding:1px 8px 25px;text-decoration:none;color:var(--text)}
+.brandmark{display:grid;place-items:center;flex:0 0 35px;height:35px;background:linear-gradient(148deg,#ed5f84,#9e2349);clip-path:polygon(50% 0,93% 23%,93% 77%,50% 100%,7% 77%,7% 23%);font:700 20px var(--mono);color:#fff5fb}
+.brand strong{font-size:.88rem;letter-spacing:.065em;display:block;white-space:nowrap}
+.brand small{display:block;color:#ad9ab4;font:10px var(--mono);letter-spacing:.12em;margin-top:3px}
+.nav-label{font:600 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#85869b;margin:13px 11px 5px}
+.nav-item{display:flex;width:100%;align-items:center;gap:10px;text-align:left;padding:7px 10px;margin:2px 0;border:1px solid transparent;border-radius:8px;background:none;font-size:.83rem;color:#b8b8c7;white-space:nowrap}
+.nav-item:hover{background:#20212a;color:#fff}.nav-item[aria-current=page]{background:#2b1b2a;border-color:#4b263c;color:#ffb5c7}
+.nav-icon{display:grid;place-items:center;width:18px;color:#a6a3ba;font:16px var(--mono);line-height:1}
+.nav-item[aria-current=page] .nav-icon{color:var(--red)}
+.rail-footer{margin-top:auto;padding:14px 8px 2px}
+.status-tile{border:1px solid #2d2d3a;padding:9px;border-radius:10px;background:#151620}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px;box-shadow:0 0 11px #6dd6b67d;vertical-align:1px}
+.stage{min-width:0}.topbar{height:67px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 30px;border-bottom:1px solid #23242e;background:#11121a;position:sticky;top:0;z-index:2}
+.crumb{color:var(--muted);font-size:.86rem}.crumb b{color:var(--text);font-weight:600;margin-left:8px}
+.top-right,.row,.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.top-right{flex-wrap:nowrap}
+kbd{font:10px var(--mono);padding:3px 5px;border:1px solid #404153;border-radius:4px;color:var(--muted);white-space:nowrap}
+.btn{border-radius:8px;background:#1b1c27;border:1px solid #353644;padding:8px 13px;font-weight:600;font-size:.84rem;line-height:1.2;min-height:36px;color:var(--text);white-space:nowrap}
+.btn:hover{background:#292a39}.btn.primary{background:#b92f56;border-color:#e05479;color:white;box-shadow:0 4px 17px #b3235335}.btn.primary:hover{background:#d03760}
+.btn.ghost{border-color:transparent;background:none;color:var(--muted)}.btn.ghost:hover{background:#20212c;color:var(--text)}
+.search-button{min-width:186px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#c4c2cf}.menu-button{display:none}
+.pill{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:3px 8px;border-radius:5px;font:600 10px var(--mono);letter-spacing:.045em;text-transform:uppercase;background:#242432;color:#bdbbce;border:1px solid #39394c}
+.pill.demo,.pill.critical{color:#ffabc2;background:#331e30;border-color:#5a2d49}.pill.high{color:#ffba91;background:#36252a;border-color:#5c3738}
+.pill.moderate{color:#f8d78d;background:#302b25;border-color:#504331}.pill.low,.pill.live{color:#9debd6;background:#1b302e;border-color:#2c514a}
+main{padding:29px 30px 39px;max-width:1680px;margin:auto;min-height:calc(100vh - 67px)}
+.hero{position:relative;overflow:hidden;min-height:244px;border-radius:var(--radius);border:1px solid #473044;
+  background:radial-gradient(ellipse at 73% 18%,#4c203b66,transparent 65%),linear-gradient(110deg,#191722 45%,#231929 100%);display:grid;align-items:center}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#e090c80b 1px,transparent 1px),linear-gradient(90deg,#e090c80b 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(90deg,transparent 15%,black 72%);pointer-events:none}
+.hero-content{position:relative;z-index:1;width:65%;padding:25px 29px}
+.kicker{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:11px}
+.hero h1{font-size:clamp(2.1rem,4vw,3.7rem);letter-spacing:-.058em;margin-bottom:9px}
+.hero p{max-width:420px;font-size:1rem;margin-bottom:17px}
+.hero-art{position:absolute;inset:0 0 0 auto;width:57%;height:100%;pointer-events:none}
+.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:21px;flex-wrap:wrap}
+.heading h1{font-size:clamp(2rem,3.5vw,3rem);margin:2px 0 4px}.heading p{max-width:720px}
+.case-field{min-width:220px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:15px 0}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px;text-align:left;min-width:0}
+button.metric:hover{border-color:#a4526e;background:#1e1a27}
+.metric small{color:var(--muted);font-size:.81rem;display:flex;justify-content:space-between;gap:6px}.metric strong{display:block;font-size:1.9rem;letter-spacing:-.055em;margin:1px 0 2px}
+.metric span.detail{color:var(--quiet);font:10px var(--mono);text-transform:uppercase;letter-spacing:.07em}
+.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:15px;align-items:start;margin-bottom:15px}
+.grid.equal{grid-template-columns:repeat(2,minmax(0,1fr))}.stack{display:grid;gap:15px}.full{grid-column:1/-1}
+.panel{border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);padding:16px 18px;min-width:0}
+.panel-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px;flex-wrap:wrap}
+.panel h2{font-size:1.15rem;font-weight:680}.panel h3{font-size:1rem}.panel p + p{margin-top:5px}
+.chart-layout{display:flex;align-items:center;gap:18px}.donut{flex:0 0 98px;height:98px;border-radius:50%;background:conic-gradient(var(--red) 0 33%,var(--purple) 33% 66%,var(--green) 66%);display:grid;place-items:center}
+.donut-inner{display:grid;place-content:center;text-align:center;background:var(--surface);border-radius:50%;width:72px;height:72px;line-height:1.15}
+.donut-inner b{font-size:1.45rem}.donut-inner small{font:9px var(--mono);color:var(--muted);text-transform:uppercase}
+.legend{display:grid;gap:5px;flex:1}.legend button{display:flex;align-items:center;gap:7px;background:none;color:var(--muted);border:0;padding:1px;text-align:left;font-size:.82rem}
+.legend button:hover{color:white}.legend button b{margin-left:auto;color:var(--text)}.swatch{display:inline-block;width:8px;height:8px;border-radius:2px}
+.trend{display:flex;justify-content:space-around;gap:10px;align-items:end;height:102px;margin-top:1px;padding:0 4px;border-bottom:1px solid var(--line);background:repeating-linear-gradient(0deg,transparent 0 23px,#272833 23px 24px)}
+.trend button{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;flex:1;background:none;border:0;padding:0;color:var(--muted);font:10px var(--mono);max-width:64px}
+.trend .bar{width:min(29px,75%);height:var(--height);border-radius:4px 4px 0 0;background:linear-gradient(#f07195,#85284d);opacity:.8}
+.trend button:hover .bar,.trend button.active .bar{opacity:1;box-shadow:0 0 14px #f15b8277}
+.trend button span:last-child{padding:3px 0}
+.table-scroll{overflow:auto;max-width:100%}
+table{width:100%;border-collapse:collapse;text-align:left;font-size:.83rem}
+th{font:600 10px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--quiet);background:#181923}
+td,th{padding:9px 10px;border-bottom:1px solid #292a35;vertical-align:middle}
+tbody tr:last-child td{border-bottom:0} tbody tr:hover{background:#1b1b27}
+td .btn{min-height:28px;padding:4px 7px}.table-link{background:none;border:0;color:#f2eff7;text-align:left;padding:0;font-weight:650}.table-link:hover{text-decoration:underline}
+.event-list,.item-list{display:grid;gap:8px}.item{border:1px solid #30313e;border-radius:8px;padding:9px 11px;background:#191a24;overflow-wrap:anywhere}
+.item .meta{font:10px var(--mono);color:var(--quiet);margin-top:4px}.item strong{display:block}
+.field{display:grid;gap:5px;margin-bottom:11px;min-width:0}
+label,.label{color:#d8d6e1;font-size:.82rem;font-weight:600}
+input:not([type=checkbox]),select,textarea{width:100%;padding:8px 10px;background:#101119;border:1px solid #393a49;border-radius:8px;color:var(--text)}
+input::placeholder,textarea::placeholder{color:#9695a7}textarea{resize:vertical;min-height:107px}
+.form-note{font-size:.82rem;margin:9px 0}.banner{padding:10px 12px;border-radius:8px;border:1px solid #634159;background:#281c2d;color:#f1c7d7;font-size:.83rem;margin-bottom:13px}
+.banner.error{border-color:#8b3b52}.status-text{min-height:1.2em;color:var(--muted);font-size:.82rem;margin-top:8px}
+.split-field{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chipbar{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 12px}
+.chip{padding:5px 8px;background:#242532;color:#bfc0d1;border:1px solid #363749;border-radius:6px;font-size:.77rem;overflow-wrap:anywhere;max-width:100%}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:10px 12px;background:#101119;border:1px solid #30313e;border-radius:8px;color:#d3c6e7;margin:8px 0;font:12px/1.5 var(--mono)}
+.risk-lead{display:flex;align-items:center;gap:16px;padding-bottom:10px}.score{font-size:2.8rem;font-weight:750;letter-spacing:-.08em;line-height:1}.score small{font-size:1.1rem;color:var(--quiet);letter-spacing:-.05em;margin-left:5px}
+.scale{height:7px;border-radius:999px;background:#2e2937;margin:6px 0 13px;overflow:hidden}.scale span{display:block;height:100%;background:linear-gradient(90deg,#cab0ff,#e65483);border-radius:inherit}
+.term{display:grid;grid-template-columns:minmax(95px,1fr) minmax(0,2.4fr);gap:8px;border-bottom:1px solid #2b2c38;padding:6px 0;font-size:.82rem}.term span:first-child{color:var(--muted)}.term span:last-child{overflow-wrap:anywhere}
+.graph-frame{position:relative;border-radius:9px;border:1px solid #3c344a;background:radial-gradient(ellipse at 50% 55%,#27213c,#10111a 68%);overflow:hidden}
+.graph-frame canvas{display:block;width:100%;height:300px;touch-action:pan-y}.graph-frame.drag canvas{cursor:grab;touch-action:none}
+.graph-frame.drag canvas:active{cursor:grabbing}.graph-help{padding:8px 11px;color:var(--muted);font-size:.78rem;background:#191925}
+.empty{padding:19px;border:1px dashed #414353;border-radius:8px;color:var(--muted);text-align:center}
+.login{max-width:510px;margin:60px auto 0}.login .panel{padding:24px}.login h1{font-size:2.35rem;margin-bottom:9px}.login p{margin-bottom:16px}
+dialog{width:min(92vw,590px);background:#171824;color:var(--text);border:1px solid #50435b;border-radius:14px;padding:18px;box-shadow:0 20px 90px #030305}
+dialog::backdrop{background:#05060ac9}dialog .nav-item{display:flex}.search-results{max-height:50vh;overflow:auto}.search-results button span:last-child{overflow:hidden;text-overflow:ellipsis}
+#toast{position:fixed;z-index:8;right:17px;bottom:17px;max-width:min(440px,90vw);background:#322538;color:#f7e3f0;border:1px solid #63475f;padding:10px 15px;border-radius:9px;display:none;box-shadow:0 8px 25px #07070aa0}#toast.visible{display:block}
+@media(max-width:1090px){.shell{grid-template-columns:198px minmax(0,1fr)}.rail{padding-inline:9px}.topbar{padding-inline:20px}main{padding-inline:20px}.hero-content{width:69%}.chart-layout{gap:10px}}
+@media(max-width:820px){.shell{display:block}.rail{display:none;position:fixed;top:0;width:min(245px,83vw);box-shadow:0 0 70px #000b}.rail.open{display:flex}.menu-button{display:inline-block}.topbar{padding-inline:12px;height:59px}.crumb{display:none}main{padding:17px 12px}.grid{grid-template-columns:1fr}.grid.equal{grid-template-columns:1fr}.hero-content{width:76%;padding:19px}.hero-art{opacity:.62}.hero{min-height:210px}.kpis{gap:7px}.metric{padding:8px}.metric strong{font-size:1.45rem}.metric small{font-size:.71rem}.metric span.detail{font-size:8px}}
+@media(max-width:490px){.search-button{min-width:0}.search-button kbd{display:none}.top-right{gap:4px}.top-right>.pill{display:none}.hero-content{width:100%}.hero-art{opacity:.3;width:80%}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.split-field{grid-template-columns:1fr}.panel{padding:13px}.heading{margin-bottom:13px}.case-field{width:100%}.login{margin:24px auto}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+.hero{border-color:#644359;background:radial-gradient(ellipse at 78% 24%,#67224378,transparent 63%),linear-gradient(112deg,#171722 24%,#321b31 100%)}
+.panel{box-shadow:0 8px 24px #05060a40;background:linear-gradient(149deg,#191923,#14151c)}
+.rail{background:linear-gradient(166deg,#11121a,#0f1017 68%)}
+.nav-item{min-height:29px;padding-block:5px;transition:background-color .15s,border-color .15s,color .15s}
+.nav-item[aria-current=page]{border-left-color:#f26488}
+.metric-mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.metric-mini .metric{padding:7px 9px;background:#1a1a26}
+.metric-mini .metric strong{font-size:1.45rem;line-height:1.4}
+.relationship-flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.relationship-flow>span:not(.chip){color:var(--red)}
+.check-stack{display:flex;flex-wrap:wrap;gap:4px 13px;margin:7px 0 12px}
+.check-stack label{display:inline-flex;align-items:center;gap:5px}
+.divider{border:none;border-top:1px solid var(--line);margin:14px 0}
+.snapshot{display:block;max-width:100%;border:1px solid #4e4058;border-radius:8px;margin-bottom:8px}
+
+</style>
+
+</head>
+<body>
+<a class="skip" href="#work">Skip to workspace</a>
+<div class="shell">
+  <aside class="rail" id="rail" aria-label="Investigation navigation"></aside>
+  <div class="stage">
+    <header class="topbar" id="topbar"></header>
+    <main id="work" tabindex="-1" aria-label="Active investigation workspace"></main>
+  </div>
+</div>
+<dialog id="command" aria-label="Workspace search"></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript>Enable JavaScript to use the offline investigation workspace.</noscript>
+<script>globalThis.HEX_CONFIG = {
+  "version": "rules-2.0",
+  "message_rules": [
+    [
+      "MSG-01",
+      "pressure",
+      "Urgency or service disruption",
+      13,
+      "within\\s+\\d+\\s*(?:min(?:utes?)?|hours?|hrs?)|immediately|today only|last warning|(?:account|power|electricity|connection).{0,26}(?:blocked|suspended|disconnected|blocking)|final notice"
+    ],
+    [
+      "MSG-02",
+      "credential",
+      "Sensitive information request",
+      26,
+      "(?:enter|share|verify|submit|confirm|upload|provide).{0,40}(?:otp|pin\\b|password|aadhaar|pan\\b|bank details|card details)|(?:otp|pin|password)\\s+(?:required|verification)"
+    ],
+    [
+      "MSG-03",
+      "payment",
+      "Payment or upfront fee",
+      19,
+      "upi\\s*(?:id|payment)?\\s*[:\\-]|(?:processing|delivery|release|registration|activation|advance)\\s+fee|(?:pay|transfer|deposit).{0,18}(?:₹|inr|rs\\.?\\s|\\d)"
+    ],
+    [
+      "MSG-04",
+      "lure",
+      "Service or identity pretext",
+      11,
+      "\\b(?:kyc|parcel|delivery attempt|electricity bill|e-challan|job offer|recruitment|account verification)\\b"
+    ],
+    [
+      "MSG-05",
+      "returns",
+      "Unusual loan or return promise",
+      18,
+      "guaranteed\\s+(?:daily|returns?|profit)|(?:double|triple)\\s+your\\s+money|instant\\s+(?:loan|approval)|no credit check"
+    ],
+    [
+      "MSG-06",
+      "referral",
+      "Referral or betting promotion",
+      11,
+      "referral\\s+(?:bonus|commission|income)|downline|multi.level marketing|(?:betting|wagering)\\s+(?:bonus|platform|deposit)"
+    ],
+    [
+      "MSG-07",
+      "brand",
+      "Unverified official authority claim",
+      9,
+      "\\b(?:official|government|police|rbi).{0,20}(?:portal|notice|approved|team|desk)|\\b(?:rajgrid|quickparcel|suraksha bank)\\b"
+    ],
+    ["MSG-08","pressure","Hindi urgency or service interruption",13,"तुरंत|अंतिम चेतावनी|(?:बिजली|खाता).{0,24}(?:बंद|काट)|(?:abhi|turant).{0,20}(?:karo|karein)"],
+    ["MSG-09","credential","Hindi request for a verification code or password",26,"(?:ओटीपी|पासवर्ड|पिन|OTP).{0,24}(?:बताएं|भेजें|साझा|डालें|bhej|bata)"],
+    ["MSG-10","payment","Hindi payment or fee request",19,"भुगतान.{0,18}(?:करें|करो|करना)|(?:प्रोसेसिंग|डिलीवरी) शुल्क|paise.{0,16}(?:bhej|jama)"]
+  ],
+  "weights": {
+    "MSG-01": 13,
+    "MSG-02": 26,
+    "MSG-03": 19,
+    "MSG-04": 11,
+    "MSG-05": 18,
+    "MSG-06": 11,
+    "MSG-07": 9,
+    "URL-01": 24,
+    "URL-02": 16,
+    "URL-03": 12,
+    "URL-04": 12,
+    "URL-05": 12,
+    "URL-06": 8,
+    "EML-REPLY-TO": 15,
+    "EML-RETURN-PATH": 15,
+    "EML-AUTH": 12,
+    "APK-01": 18,
+    "APK-02": 30,
+    "DOM-01": 10,
+    "WEB-01": 16,
+    "WEB-02": 14
+  },
+  "bands": [
+    [
+      "Critical",
+      75
+    ],
+    [
+      "High",
+      50
+    ],
+    [
+      "Moderate",
+      25
+    ],
+    [
+      "Low",
+      0
+    ]
+  ]
+};
+</script>
+<script>globalThis.HEX_DEMO = [
+  {id:"HEX-0261", title:"Electricity cutoff SMS", type:"message", priority:"High", status:"In review", age:0, tag:"Utility impersonation", region:"Jaipur", source:"Fictional SMS transcript", input:"RajGrid final notice: electricity will be disconnected within 30 minutes. Pay INR 490. UPI: rajgrid-check@demobank. Visit https://rajgrid-payment.example/payment and submit OTP immediately.", domain:"rajgrid-payment.example", complaint:"Two fictional submissions mention an urgent disconnection warning and a request for an OTP.", reviews:["Pressure to pay before cutoff", "Requested OTP after payment", "Pressure to pay before cutoff"]},
+  {id:"HEX-0259", title:"Parcel redelivery request", type:"message", priority:"Normal", status:"Open", age:1, tag:"Delivery impersonation", region:"Ajmer", source:"Fictional chat transcript", input:"QuickParcel parcel delivery attempt failed. Pay INR 29 delivery fee today only at https://quickparcel-check.example/payment.", domain:"quickparcel-check.example", complaint:"Fictional customer mentions a small redelivery fee before a larger payment request.", reviews:["Small redelivery fee", "Small redelivery fee", "Unexpected payment request"]},
+  {id:"HEX-0256", title:"KYC update email", type:"email", priority:"High", status:"In review", age:2, tag:"Credential harvesting", region:"Jaipur", source:"Fictional .eml transcript", input:"From: Suraksha Bank <desk@suraksha-bank.example>\nReply-To: review@kyc-update.example\nReturn-Path: <bounce@kyc-update.example>\nAuthentication-Results: relay.example; spf=fail; dkim=none; dmarc=fail\nSubject: Last warning: KYC\n\nAccount will be blocked. Confirm password at https://kyc-update.example/verify within 1 hour.", domain:"kyc-update.example", complaint:"Fictional forum summary references a KYC-themed email with a mismatched reply domain.", reviews:["Account closure threat", "Reply domain mismatch", "Password request"]},
+  {id:"HEX-0253", title:"Instant loan APK", type:"apk", priority:"High", status:"Open", age:3, tag:"Loan app", region:"Kota", source:"Fictional manifest fixture", input:"com.example.rapidcredit", domain:"wallet-review.example", complaint:"Fictional users report excessive permissions and requests for a processing fee.", reviews:["Access to contacts requested", "Access to contacts requested", "Upfront loan fee"], apk:{label:"RapidCredit Demo",package:"com.example.rapidcredit",versionName:"1.4-demo",permissions:["android.permission.INTERNET","android.permission.READ_CONTACTS","android.permission.READ_SMS","android.permission.RECORD_AUDIO","android.permission.ACCESS_FINE_LOCATION"],links:["https://wallet-review.example/","support@wallet-review.example","rajgrid-check@demobank"]}},
+  {id:"HEX-0251", title:"Investment wallet site", type:"website", priority:"Urgent", status:"In review", age:4, tag:"Investment site", region:"Jodhpur", source:"Fictional URL submission", input:"https://wallet-review.example/deposit", domain:"wallet-review.example", complaint:"Fictional reviews describe a fixed-return offer and repeated requests for upfront deposits.", reviews:["Withdrawal required another deposit", "Guaranteed daily returns", "Guaranteed daily returns"]},
+  {id:"HEX-0247", title:"Referral returns scheme", type:"message", priority:"Normal", status:"Closed", age:6, tag:"Ponzi indicators", region:"Bikaner", source:"Fictional social-media transcript", input:"Guaranteed daily returns. Double your money with our referral commission. Pay INR 1900 activation fee. UPI ID: rajgrid-check@demobank. Details at https://wallet-review.example/deposit.", domain:"wallet-review.example", complaint:"Fictional participants report referral payouts and display similar promotional language.", reviews:["Referral payouts advertised", "Referral payouts advertised", "Withdrawal terms unclear"]}
+];
+globalThis.HEX_EVENTS = [
+  [0,"Navigation","wallet-review.example","wallet-review.example","GET",302,"Initial document response","Medium"],
+  [530,"Redirect","wallet-review.example","verify-wallet.example","GET",200,"Final document response","Medium"],
+  [1150,"Form observed","verify-wallet.example","verify-wallet.example","",null,"Password and OTP inputs","High"],
+  [1720,"Cross-host form","verify-wallet.example","collect-review.example","POST",null,"Action metadata only","High"],
+  [2200,"Download blocked","verify-wallet.example","verify-wallet.example","GET",null,"Fictional attachment attempt","Medium"]
+];
+</script>
+<script>"use strict";
+
+const offline = true;
+const $ = (selector, scope = document) => scope.querySelector(selector);
+const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+const safe = (value) => String(value ?? "").replace(/[&<>"']/g, (char) =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[char]);
+const unique = (items, id) => [...new Map(items.map(item => [id(item),item])).values()];
+const now = () => new Date().toISOString();
+const dayLabel = (date) => new Intl.DateTimeFormat("en-IN",{day:"2-digit",month:"short",timeZone:"Asia/Kolkata"})
+  .format(new Date(date));
+const dateLabel = (date) => date ? new Intl.DateTimeFormat("en-IN",{day:"2-digit",month:"short",
+  year:"numeric", hour:"2-digit",minute:"2-digit",timeZone:"Asia/Kolkata"}).format(new Date(date)) + " IST" : "—";
+const indicator = (type,value,evidence_ref,snippet=value) => ({type,value,evidence_ref,snippet});
+const finding = (rule_id,group,title,weight,snippet,evidence_ref,kind="heuristic",confidence="medium") =>
+  ({rule_id,group,title,weight:Math.max(0,Math.min(100,Math.trunc(HEX_CONFIG.weights[rule_id]??weight))),snippet,evidence_ref,kind,confidence});
+const level = score => HEX_CONFIG.bands.find(([,minimum])=>score>=minimum)?.[0]||"Low";
+
+function digest(text) {
+  if (!globalThis.crypto?.subtle) return Promise.resolve(null);
+  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(text)).then(bytes=>
+    Array.from(new Uint8Array(bytes),n=>n.toString(16).padStart(2,"0")).join(""));
+}
+
+function extract(text,id) {
+  const patterns = [
+    ["url",/https?:\/\/[^\s<>"'，।]+/gi,value=>value.replace(/[.,;:!?)}\]]+$/,"")],
+    ["email",/[\w.+%-]+@[a-z\d-]+(?:\.[a-z\d-]+)+/gi,value=>value.toLowerCase()],
+    ["upi_candidate",/(?<![\w@.])[a-z\d][a-z\d._-]{1,63}@[a-z][a-z\d]{1,29}(?![\w-]|\.[a-z\d])/gi,value=>value.toLowerCase()],
+    ["phone",/(?<![\w.+])(?:\+91[- ]?|0)?[6-9](?:[- ]?\d){9}(?!\w|\.\d)/g,value=>"+91"+value.replace(/\D/g,"").slice(-10)],
+  ];
+  return unique(patterns.flatMap(([type,pattern,canonical])=>[...text.matchAll(pattern)].map(match=>
+    indicator(type,canonical(match[0]),id,match[0]))), item=>item.type+item.value).slice(0,100);
+}
+
+function inspectLink(raw,id) {
+  if (/[\s\\\x00-\x1f\x7f]/.test(raw.trim())) throw Error("Enter a single HTTP(S) URL or domain.");
+  const url = new URL(raw.includes("://") ? raw.trim() : "https://"+raw.trim());
+  const host = url.hostname.toLowerCase().replace(/\.$/,"");
+  if (!["https:","http:"].includes(url.protocol) || (!host.includes(".") && !host.includes(":"))) {
+    throw Error("Enter a single HTTP(S) URL or domain.");
+  }
+  const result = [];
+  const ip = /^\d+(?:\.\d+){3}$/.test(host) || host.includes(":");
+  if (url.username) result.push(finding("URL-01","host","URL contains deceptive user information",24,raw,id));
+  if (ip) result.push(finding("URL-02","host","Link uses a literal IP address",16,host,id));
+  if (host.includes("xn--")) result.push(finding("URL-03","host","Internationalised hostname needs visual comparison",12,host,id));
+  if (/verify|kyc|login|secure|support|payment|update/.test(host)) result.push(finding("URL-04","host","Hostname contains an account or service keyword",12,host,id));
+  if (/\/(?:verify|kyc|login|otp|payment|wallet|deposit)(?:[/.\-]|$)/i.test(url.pathname)) result.push(finding("URL-05","link_intent","Path suggests account, credential or payment activity",12,url.pathname,id));
+  if (url.protocol==="http:") result.push(finding("URL-06","transport","Submitted URL uses HTTP",8,raw,id,"observation","high"));
+  return {details:{host,scheme:url.protocol.slice(0,-1),path:url.pathname,port:url.port,query_keys:[...url.searchParams.keys()],
+    store_link:["play.google.com","apps.apple.com"].includes(host)},
+    indicators:[indicator("url",raw.trim().includes("://")?raw.trim():url.href,id),indicator(ip?"ip":"domain",host,id)],findings:result};
+}
+
+function analyzeOffline(kind,text,id,fixture=null) {
+  let findings = [], indicators = [], details = {}, contradictions = [];
+  if (kind==="apk") {
+    if (!fixture) throw Error("Offline APK mode uses the included synthetic manifest.");
+    const sensitive = fixture.permissions.filter(value=>!value.endsWith(".INTERNET"));
+    details = {...fixture,sensitive_permissions:sensitive,signature_verification:"Fixture only"};
+    indicators = [indicator("package",fixture.package,id),...extract(fixture.links.join(" "),id),
+      indicator("domain","wallet-review.example",id)];
+    findings = sensitive.map(permission=>finding("APK-01","app_permissions","Application requests a sensitive permission",18,
+      permission,id,"observation","high"));
+    if (sensitive.length>=3) findings.push(finding("APK-02","app_permissions","Application requests multiple sensitive permissions",30,
+      sensitive.join(", "),id,"observation","high"));
+  } else if (["website","url","app_store"].includes(kind)) {
+    ({details,indicators,findings} = inspectLink(text,id));
+  } else {
+    if (kind==="email") {
+      const header = text.split(/\r?\n\r?\n/)[0];
+      for (const line of header.split(/\r?\n/)) {
+        const match = line.match(/^(From|Reply-To|Return-Path|Subject|Authentication-Results):\s*(.*)$/i);
+        if (match) details[match[1].toLowerCase()] = match[2];
+      }
+      const domain = (value)=>value?.match(/@([a-z0-9.-]+)/i)?.[1]?.toLowerCase();
+      for (const key of ["reply-to","return-path"]) {
+        if (domain(details[key]) && domain(details.from) && domain(details[key])!==domain(details.from)) {
+          findings.push(finding("EML-"+key.toUpperCase(),"mail_alignment",key+" domain differs from From",15,details[key],id,"observation","high"));
+        }
+      }
+      if (/(?:spf|dkim|dmarc)\s*=\s*(?:fail|softfail)\b/i.test(details["authentication-results"])) {
+        findings.push(finding("EML-AUTH","mail_auth","Submitted authentication header reports a failure",12,details["authentication-results"],id));
+      }
+      if (/(?:spf|dkim|dmarc)\s*=\s*pass\b/i.test(details["authentication-results"])) {
+        contradictions.push("A pass result appears in the supplied header. Its provenance is unverified.");
+      }
+    }
+    indicators = extract(text,id);
+    for (const [rule,group,title,weight,expression] of HEX_CONFIG.message_rules) {
+      const match = text.match(new RegExp(expression,"i"));
+      if (match) findings.push(finding(rule,group,title,weight,match[0],id));
+    }
+    for (const item of indicators.filter(entry=>entry.type==="url").slice(0,30)) {
+      try {
+        const link = inspectLink(item.value,id);
+        indicators.push(...link.indicators);
+        findings.push(...link.findings);
+      } catch { /* The exact submitted string stays available as an extracted indicator. */ }
+    }
+  }
+  const byGroup = new Map();
+  for (const item of findings) {
+    if(!item.weight)continue;
+    if (!byGroup.has(item.group) || byGroup.get(item.group).weight<item.weight) byGroup.set(item.group,item);
+  }
+  const contributions = [...byGroup.values()].sort((a,b)=>b.weight-a.weight || a.rule_id.localeCompare(b.rule_id));
+  const raw_total = contributions.reduce((sum,item)=>sum+item.weight,0);
+  const score = Math.min(100,raw_total);
+  const missing = kind==="apk" ? ["Signing certificate verification","Runtime behaviour","Developer attribution"] :
+    ["External reputation","Independent attribution",kind==="email"?"Trusted server authentication":"Live website observations"];
+  return {kind,details,status:"complete",version:HEX_CONFIG.version,findings:unique(findings,item=>item.rule_id+item.snippet),
+    indicators:unique(indicators,item=>item.type+item.value),risk:{score,band:level(score),contributions,raw_total,
+    confidence:contributions.length>=3?"medium":"low",missing,contradictions,updated_at:now(),evidence_ref:id,rule_version:HEX_CONFIG.version}};
+}
+
+function detect(text) {
+  if (/^(From|Subject|Received|Return-Path|Authentication-Results):/i.test(text.trim()) && text.includes("\n")) return "email";
+  try { return inspectLink(text,"").details.store_link ? "app_store" : "url"; } catch { return "message"; }
+}
+
+function seedCases() {
+  return HEX_DEMO.map((item,index)=>{
+    const id = "EV-DEMO-"+(index+1).toString().padStart(2,"0");
+    const created_at = new Date(Date.UTC(2026,10,22-item.age,5,index*7)).toISOString();
+    return {...item,synthetic:true,created_at,tags:[item.tag],notes:"",evidence:[{id,kind:item.type,source:item.source,created_at,
+      filename:item.type==="apk"?"manifest.fixture.json":item.type==="email"?"mail.fixture.eml":"intake.fixture.txt",
+      sha256:null,disposition:"synthetic",text:item.type==="apk"?JSON.stringify(item.apk):item.input,
+      analysis:analyzeOffline(item.type,item.input,id,item.apk)}]};
+  });
+}
+
+function saveFile(content,extension,name) {
+  const types={json:"application/json",pdf:"application/pdf",csv:"text/csv",html:"text/html"};
+  const blob = content instanceof Blob ? content : new Blob([content],{type:types[extension]||"application/octet-stream"});
+  const address = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = address;
+  link.download = name+"."+extension;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(()=>URL.revokeObjectURL(address),1500);
+}
+
+function makePDF(sections) {
+  const lines = [];
+  for (const [heading,values] of sections) {
+    lines.push({text:heading,head:true});
+    for (const value of values) {
+      const ascii = String(value).normalize("NFKD").replace(/[^\x20-\x7e]/g," ");
+      const wrapped = ascii.match(/.{1,93}(?:\s|$)|.{1,93}/g) || [""];
+      wrapped.forEach(text=>lines.push({text,head:false}));
+    }
+    lines.push({text:"",head:false});
+  }
+  const pages = [];
+  const pdfText = value=>String(value).replace(/[\\()]/g,"\\$&");
+  for (let i=0;i<lines.length;i+=45) {
+    const body = lines.slice(i,i+45).map(({text,head},index)=>
+      "BT /F1 "+(head?"12":"9")+" Tf "+(head?"0.58 0.12 0.26":"0.16 0.17 0.21")+
+      " rg 44 "+(735-index*14)+" Td ("+pdfText(text)+") Tj ET").join("\n");
+    pages.push("0.08 0.08 0.11 rg 0 758 595 84 re f\nBT /F1 20 Tf 1 1 1 rg 44 794 Td (HEX SENTINEL AI) Tj ET\n"+
+      "BT /F1 9 Tf 1 1 1 rg 44 777 Td (OFFLINE INVESTIGATION DEMONSTRATION) Tj ET\n"+body+
+      "\nBT /F1 9 Tf 0.5 0.3 0.37 rg 44 34 Td (DEMO ONLY  /  "+(pages.length+1)+") Tj ET");
+  }
+  const objects = ["<< /Type /Catalog /Pages 2 0 R >>","", "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"];
+  const keys=[];
+  for (const body of pages) {
+    const index=objects.length+1;
+    keys.push(index+" 0 R");
+    objects.push("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents "+(index+1)+" 0 R >>",
+      "<< /Length "+body.length+" >>\nstream\n"+body+"\nendstream");
+  }
+  objects[1]="<< /Type /Pages /Kids ["+keys.join(" ")+"] /Count "+pages.length+" >>";
+  let result="%PDF-1.4\n", offsets=[0];
+  objects.forEach((object,i)=>{offsets.push(result.length);result+=(i+1)+" 0 obj\n"+object+"\nendobj\n";});
+  const xref=result.length;
+  return result+"xref\n0 "+offsets.length+"\n0000000000 65535 f \n"+
+    offsets.slice(1).map(n=>String(n).padStart(10,"0")+" 00000 n \n").join("")+
+    "trailer\n<< /Root 1 0 R /Size "+offsets.length+" >>\nstartxref\n"+xref+"\n%%EOF\n";
+}
+
+</script>
+<script>"use strict";
+
+const entityColors={url:"#ad9df8",domain:"#f57096",ip:"#7acaed",email:"#a8a5fd",upi_candidate:"#f8bb79",phone:"#7ae0bd",package:"#b0d3fc",case:"#f692ad"};
+const hexPath=(context,x,y,radius)=>{
+  context.beginPath();
+  for(let i=0;i<6;i++){
+    const radians=(i*60-30)*Math.PI/180;
+    const px=x+radius*Math.cos(radians),py=y+radius*Math.sin(radians);
+    if(!i)context.moveTo(px,py);else context.lineTo(px,py);
+  }
+  context.closePath();
+};
+function canvasContext(canvas) {
+  const width=canvas.clientWidth,height=canvas.clientHeight;
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=width*dpr;
+  canvas.height=height*dpr;
+  const context=canvas.getContext("2d");
+  context.scale(dpr,dpr);
+  return {context,width,height};
+}
+function cameraArt(canvas) {
+  if (!canvas) return;
+  const paint=()=>{
+    const {context:c,width:w,height:h}=canvasContext(canvas);
+    const x=w*.62,y=h*.51,r=Math.min(72,h*.29),glow=c.createRadialGradient(x,y,3,x,y,r*1.9);
+    glow.addColorStop(0,"#ed6d9560");glow.addColorStop(1,"#eb689200");
+    c.fillStyle=glow;c.fillRect(0,0,w,h);
+    for (const [i,alpha] of [1.43,1.2,1,.8,.6].map((radii,i)=>[radii,[.14,.3,.7,.34,.48][i]])) {
+      hexPath(c,x,y,r*i);c.strokeStyle="rgba(241,117,160,"+alpha+")";c.lineWidth=1;c.stroke();
+    }
+    const nodes=[[.18,.29],[.36,.18],[.45,.75],[.87,.25],[.91,.71],[.71,.9],[.18,.75],[.99,.44],[.66,.07]];
+    for(const [i,[nx,ny]] of nodes.entries()){
+      const px=w*nx,py=h*ny;
+      const a=(i*60-30)*Math.PI/180;
+      c.beginPath();c.moveTo(px,py);c.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));
+      c.strokeStyle=i%2?"#8c5376aa":"#ab79936e";c.stroke();
+      c.beginPath();c.arc(px,py,i%3===0?4:2.5,0,Math.PI*2);c.fillStyle=i%2?"#eda0b8":"#c496e1";c.fill();
+    }
+    c.strokeStyle="#fe9cb8";c.lineWidth=2.2;c.lineCap="round";
+    c.beginPath();c.moveTo(x-18,y-15);c.lineTo(x-18,y+15);c.moveTo(x+18,y-15);c.lineTo(x+18,y+15);
+    c.moveTo(x-18,y);c.lineTo(x+18,y);c.stroke();
+  };
+  paint();
+  observeCanvas(canvas,paint);
+}
+function observeCanvas(canvas,paint) {
+  if (!("ResizeObserver" in window)) return;
+  const observer=new ResizeObserver(()=>{
+    if(canvas.isConnected) paint(); else observer.disconnect();
+  });
+  observer.observe(canvas);
+}
+function paintLocations(canvas,records) {
+  if(!canvas)return;
+  const cityPositions={Bikaner:[.29,.23],Jaipur:[.73,.41],Ajmer:[.57,.61],Jodhpur:[.26,.72],Kota:[.76,.83]};
+  const counts=new Map();
+  for(const entry of records) {
+    if(entry.synthetic&&cityPositions[entry.region])counts.set(entry.region,(counts.get(entry.region)||0)+1);
+  }
+  const paint=()=>{
+    const {context:c,width:w,height:h}=canvasContext(canvas);
+    c.fillStyle="#10111b";c.fillRect(0,0,w,h);
+    c.strokeStyle="#2c2b3c";c.lineWidth=1;
+    for(let i=0;i<w;i+=25){c.beginPath();c.moveTo(i,0);c.lineTo(i,h);c.stroke();}
+    for(let i=0;i<h;i+=25){c.beginPath();c.moveTo(0,i);c.lineTo(w,i);c.stroke();}
+    for(const [city,count] of counts) {
+      const [a,b]=cityPositions[city],x=w*a,y=h*b;
+      const gradient=c.createRadialGradient(x,y,1,x,y,16+9*count);
+      gradient.addColorStop(0,"#e95c91cc");gradient.addColorStop(1,"#e95c9100");
+      c.fillStyle=gradient;c.fillRect(x-36,y-36,72,72);
+      c.fillStyle="#ffb1ce";c.beginPath();c.arc(x,y,3+count,0,Math.PI*2);c.fill();
+      c.fillStyle="#f1dce9";c.font="11px Segoe UI";
+      c.textAlign=a>.62?"right":"left";c.fillText(city+" · "+count,x+(a>.62?-7:7),y-7);
+    }
+  };
+  paint();
+  observeCanvas(canvas,paint);
+}
+function drawGraph(canvas,data,mode,onSelect) {
+  if (!canvas) return;
+  let angle=.45,tilt=.3,selected=null,pointer=null,positions=[],moved=false;
+  let zoom=1,panX=0,panY=0,panMode=false;
+  const nodes=data.nodes.slice(0,32);
+  const related=data.related_cases.slice(0,8);
+  function paint(){
+    const {context:c,width:w,height:h}=canvasContext(canvas),cx=w*.5+panX,cy=h*.5+panY;
+    const radius=Math.min(w*.32,h*.39)*zoom;
+    positions=nodes.map((node,index)=>{
+      const t=index*2.3999632;
+      if(mode==="2d"){
+        const a=index*2*Math.PI/Math.max(1,nodes.length)-Math.PI/2;
+        return {node,x:cx+Math.cos(a)*radius*1.3,y:cy+Math.sin(a)*radius,z:0};
+      }
+      const initialY=1-2*(index+.5)/nodes.length;
+      const horizontal=Math.sqrt(1-initialY*initialY),x=Math.cos(t+angle)*horizontal,
+        z=Math.sin(t+angle)*horizontal,y=initialY*Math.cos(tilt)-z*Math.sin(tilt),
+        depth=initialY*Math.sin(tilt)+z*Math.cos(tilt),scale=1+.29*depth;
+      return {node,x:cx+x*radius*scale*1.4,y:cy+y*radius*scale,z:depth};
+    });
+    c.strokeStyle="#45405b";c.lineWidth=1;
+    for(const p of positions){
+      c.beginPath();c.moveTo(cx,cy);c.lineTo(p.x,p.y);c.stroke();
+    }
+    related.forEach((caseId,i)=>{
+      const x=30,y=27+i*26;
+      for (const pos of positions.filter(pos=>data.edges.some(edge=>edge.case_id===caseId&&edge.id===pos.node.id))){
+        c.beginPath();c.moveTo(x,y);c.lineTo(pos.x,pos.y);c.strokeStyle="#87657462";c.stroke();
+      }
+      c.fillStyle=entityColors.case;c.fillRect(x-4,y-4,8,8);
+      c.fillStyle="#d4b5c8";c.font="9px Consolas";c.fillText(caseId,x+8,y-5);
+    });
+    hexPath(c,cx,cy,16);c.fillStyle="#9e365e";c.fill();c.strokeStyle="#ffa8ca";c.stroke();
+    c.fillStyle="#fff";c.font="bold 11px Consolas";c.textAlign="center";c.fillText("HEX",cx,cy+4);c.textAlign="left";
+    for(const {node,x,y,z} of [...positions].sort((a,b)=>a.z-b.z)){
+      c.beginPath();c.arc(x,y,node.id===selected?8:5+z*1.3,0,Math.PI*2);
+      c.fillStyle=entityColors[node.type]||"#c7c6da";c.fill();
+      if(node.id===selected||((mode==="2d"||nodes.length<7)&&nodes.length<15)){
+        c.fillStyle="#e7daed";c.font="10px Consolas";
+        const text=node.value.length>27?node.value.slice(0,25)+"…":node.value;
+        c.textAlign=x>cx?"right":"left";c.fillText(text,x+(x>cx?-7:7),y-8);c.textAlign="left";
+      }
+    }
+    if (!nodes.length) {c.fillStyle="#b9b6c8";c.font="14px Segoe UI";c.fillText("Add evidence to show connections",18,28);}
+  }
+  canvas.addEventListener("pointerdown",event=>{
+    pointer={x:event.clientX,y:event.clientY};
+    moved=false;
+    canvas.setPointerCapture(event.pointerId);
+  });
+  canvas.addEventListener("pointermove",event=>{
+    if(!pointer)return;
+    const dx=event.clientX-pointer.x,dy=event.clientY-pointer.y;
+    if(Math.abs(dx)+Math.abs(dy)<2)return;
+    moved=true;
+    if(panMode||event.shiftKey||mode==="2d"){panX+=dx;panY+=dy;}
+    else{angle+=dx*.012;tilt+=dy*.009;}
+    pointer={x:event.clientX,y:event.clientY};paint();
+  });
+  canvas.addEventListener("pointerup",event=>{
+    pointer=null;
+    if(moved)return;
+    const box=canvas.getBoundingClientRect(),x=event.clientX-box.left,y=event.clientY-box.top;
+    const node=positions.find(pos=>Math.hypot(pos.x-x,pos.y-y)<13)?.node;
+    if(node){selected=node.id;paint();onSelect(node.id);}
+  });
+  canvas.addEventListener("pointercancel",()=>{pointer=null;});
+  paint();
+  observeCanvas(canvas,paint);
+  const focus=id=>{selected=id;paint();};
+  focus.camera=action=>{
+    if(action==="in")zoom=Math.min(2.3,zoom*1.24);
+    if(action==="out")zoom=Math.max(.45,zoom/1.24);
+    if(action==="pan"){
+      panMode=!panMode;
+      $("#pan-toggle")?.setAttribute("aria-pressed",String(panMode));
+    }
+    if(action==="reset"){zoom=1;panX=0;panY=0;angle=.45;tilt=.3;panMode=false;$("#pan-toggle")?.setAttribute("aria-pressed","false");}
+    paint();
+  };
+  return focus;
+}
+
+</script>
+<script>"use strict";
+function globeDisplay(canvas,cases) {
+  if(!canvas)return null;
+  const places={Jaipur:[26.91,75.79],Ajmer:[26.45,74.64],Jodhpur:[26.24,73.02],Kota:[25.21,75.86],Bikaner:[28.02,73.31]};
+  const counts=cases.filter(row=>row.synthetic&&places[row.region]).reduce((map,row)=>
+    map.set(row.region,(map.get(row.region)||0)+1),new Map());
+  const continents=[
+    [[66,-165],[73,-137],[70,-105],[80,-81],[69,-55],[55,-59],[46,-50],[29,-79],[17,-89],[9,-80],[5,-78],[15,-97],[29,-115],[49,-125],[59,-143],[66,-165]],
+    [[11,-74],[5,-51],[-7,-35],[-24,-43],[-40,-59],[-55,-69],[-46,-76],[-25,-70],[-5,-82],[11,-74]],
+    [[71,-11],[78,28],[71,60],[75,111],[66,169],[54,164],[40,142],[22,132],[11,106],[2,100],[17,84],[8,76],[21,64],[27,56],[35,41],[45,33],[36,13],[37,-10],[50,-5],[60,-6],[71,-11]],
+    [[35,-11],[35,17],[25,33],[12,50],[-12,41],[-35,19],[-28,10],[-7,7],[4,-16],[20,-17],[35,-11]],
+    [[-12,129],[-16,143],[-33,153],[-40,145],[-34,116],[-23,114],[-12,129]],
+    [[83,-51],[78,-22],[60,-42],[67,-56],[83,-51]]
+  ];
+  let lon=68,lat=21,zoom=1,drag=null;
+  const radians=value=>value*Math.PI/180;
+  function paint(){
+    const {context:c,width:w,height:h}=canvasContext(canvas),cx=w/2,cy=h/2,r=Math.min(w,h)*.42*zoom;
+    const p=radians(lat);
+    const project=(north,east)=>{
+      const latitude=radians(north),longitude=radians(east-lon);
+      return {x:cx+r*Math.cos(latitude)*Math.sin(longitude),
+        y:cy-r*(Math.cos(p)*Math.sin(latitude)-Math.sin(p)*Math.cos(latitude)*Math.cos(longitude)),
+        visible:Math.sin(p)*Math.sin(latitude)+Math.cos(p)*Math.cos(latitude)*Math.cos(longitude)>=0};
+    };
+    const line=points=>{
+      let visible=false;c.beginPath();
+      for(const [north,east] of points){
+        const node=project(north,east);
+        if(node.visible){if(visible)c.lineTo(node.x,node.y);else c.moveTo(node.x,node.y);}
+        visible=node.visible;
+      }
+      c.stroke();
+    };
+    const glow=c.createRadialGradient(cx-r*.25,cy-r*.35,r*.1,cx,cy,r);
+    glow.addColorStop(0,"#302242");glow.addColorStop(1,"#121320");
+    c.fillStyle=glow;c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);c.fill();
+    c.save();c.clip();
+    c.strokeStyle="#74577f62";c.lineWidth=1;
+    for(let meridian=-180;meridian<180;meridian+=20)line(Array.from({length:37},(_,i)=>[i*5-90,meridian]));
+    for(let parallel=-80;parallel<=80;parallel+=20)line(Array.from({length:73},(_,i)=>[parallel,i*5-180]));
+    c.strokeStyle="#937ca9c1";c.lineWidth=1.8;
+    for(const chain of continents)line(chain);
+    const dots=[];
+    for(const [name,count] of counts) {
+      const node=project(...places[name]);
+      if(node.visible)dots.push({node,name,count});
+    }
+    dots.forEach(({node,count})=>{
+      const {x,y}=node;
+      c.beginPath();c.arc(x,y,3+count,0,Math.PI*2);c.fillStyle="#ff8aad";c.shadowColor="#ff638a";c.shadowBlur=15;c.fill();c.shadowBlur=0;
+    });
+    c.restore();
+    c.strokeStyle="#b091c6";c.lineWidth=1.1;c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);c.stroke();
+    if(dots.length){
+      const sample=dots.find(row=>row.name==="Jaipur")||dots.at(-1);
+      c.fillStyle="#ffd3e1";c.font="600 12px Segoe UI";
+      c.fillText("Rajasthan fixtures",Math.min(w-115,sample.node.x+10),sample.node.y-10);
+    }
+  }
+  canvas.addEventListener("pointerdown",event=>{drag=[event.clientX,event.clientY];canvas.setPointerCapture(event.pointerId);});
+  canvas.addEventListener("pointermove",event=>{
+    if(!drag)return;
+    lon-=(event.clientX-drag[0])*.46;
+    lat=Math.min(80,Math.max(-80,lat+(event.clientY-drag[1])*.35));
+    drag=[event.clientX,event.clientY];paint();
+  });
+  const release=()=>{drag=null;};
+  canvas.addEventListener("pointerup",release);canvas.addEventListener("pointercancel",release);
+  paint();observeCanvas(canvas,paint);
+  return action=>{
+    if(action==="in")zoom=Math.min(2,zoom*1.23);
+    if(action==="out")zoom=Math.max(.65,zoom/1.23);
+    if(action==="reset"){zoom=1;lat=21;lon=68;}
+    paint();
+  };
+}
+
+</script>
+<script>"use strict";
+const NAV=[
+ ["Operations",[["overview","⌂","Command centre"],["newcase","+","New investigation"],["cases","▣","Investigation cases"],["analytics","◉","Threat analytics"]]],
+ ["Analysis",[["message","✉","Message analysis"],["domain","◎","Domain intelligence"],["url","↗","URL intake"],["website","◫","Website investigation"],
+ ["sandbox","▤","Website sandbox"],["apps","▰","Application intelligence"],["apk","◈","APK intelligence"],["osint","◎","OSINT fusion"],
+ ["reputation","≋","Reputation intelligence"],["reviews","▤","Public reviews"]]],
+ ["Investigation",[["campaign","◉","Campaign detection"],["graph","◇","Entity graph"],["history","⌕","Historical search"],
+ ["risk","◔","Risk explanation"],["assistant","✦","Local AI assistant"],["vault","▧","Evidence vault"],["reports","▥","Reports"]]],
+ ["System",[["system","◌","System health"],["audit","≡","Audit & access control"],["settings","⚙","Settings"]]]
+];
+const ROUTES=NAV.flatMap(group=>group[1]);
+const typeLabel={message:"Message",email:"Email",url:"URL",website:"Website",app_store:"Store link",apk:"APK",attachment:"Attachment",domain:"Domain",ip:"IP address",upi_candidate:"UPI candidate",phone:"Phone",package:"APK package",case:"Case",
+  app_identity:"App identity",app_name:"App name",signing_certificate:"Signing certificate",hash:"SHA-256",campaign:"Campaign reference"};
+const palette={Critical:"#f26488",High:"#eba47f",Moderate:"#bf9cf6",Low:"#73d4bb"};
+const riskOf=record=>record?.evidence?.map(item=>item.analysis.risk).sort((a,b)=>b.score-a.score)[0] || record?.top_risk;
+const best=record=>record?.evidence?.find(item=>item.id===riskOf(record)?.evidence_ref);
+const empty=(text="There are no records for this case yet.")=>'<div class="empty">'+safe(text)+'</div>';
+const btn=(name,action,extra="",kind="")=>'<button type="button" class="btn '+kind+'" data-action="'+safe(action)+'" '+extra+'>'+safe(name)+'</button>';
+const link=(name,id,kind="")=>btn(name,"route",'data-id="'+safe(id)+'"',kind);
+const pill=(value,style="")=>'<span class="pill '+safe(style)+'">'+safe(value)+'</span>';
+const riskPill=risk=>risk?pill(risk.band,risk.band.toLowerCase()):pill("Not assessed");
+const panel=(title,body,aside="")=>'<section class="panel"><div class="panel-title"><h2>'+safe(title)+'</h2>'+aside+'</div>'+body+'</section>';
+const term=(key,value)=>'<div class="term"><span>'+safe(key)+'</span><span>'+safe(value)+'</span></div>';
+const item=(title,body,meta="")=>'<div class="item"><strong>'+safe(title)+'</strong><p class="small">'+safe(body)+'</p>'+(meta?'<div class="meta">'+safe(meta)+'</div>':'')+'</div>';
+const field=(label,id,control)=>'<div class="field"><label for="'+id+'">'+safe(label)+'</label>'+control+'</div>';
+const options=(values,selected)=>values.map(value=>'<option'+(value===selected?' selected':'')+'>'+safe(value)+'</option>').join("");
+const input=(id,value="",extra="")=>'<input id="'+id+'" name="'+id+'" value="'+safe(value)+'" '+extra+'>';
+const textArea=(id,value="",extra="")=>'<textarea id="'+id+'" name="'+id+'" '+extra+'>'+safe(value)+'</textarea>';
+const submit=label=>'<button type="submit" class="btn primary">'+safe(label)+'</button>';
+const arrList=(values,content)=>values.length?'<div class="item-list">'+values.map(content).join("")+'</div>':empty();
+const box=(label,body)=>'<div class="banner">'+(label?'<strong>'+safe(label)+'</strong> · ':'')+safe(body)+'</div>';
+const table=(head,rows)=>'<div class="table-scroll"><table><thead><tr>'+head.map(val=>'<th scope="col">'+safe(val)+'</th>').join("")+'</tr></thead><tbody>'+
+  rows.map(cols=>'<tr>'+cols.map(val=>'<td>'+val+'</td>').join("")+'</tr>').join("")+'</tbody></table></div>';
+const fieldCase=()=>state.cases.length?field("Active case","active-case",'<select id="active-case"><option value="">Choose a case</option>'+
+  state.cases.map(value=>'<option value="'+safe(value.id)+'"'+(state.active===value.id?' selected':'')+'>'+safe(value.id+" · "+value.title)+'</option>').join("")+'</select>'):link("Create case","newcase");
+const heading=(title,sub,active=true)=>'<div class="heading"><div><div class="kicker">PS01 Investigation workspace</div><h1>'+safe(title)+'</h1><p>'+safe(sub)+'</p></div>'+
+  (active?'<div class="case-field">'+fieldCase()+'</div>':'')+'</div>';
+const scenarioMark=record=>record?.synthetic || offline ? pill("Synthetic demo","demo") : pill("Submitted evidence","live");
+const statusSlot='<p class="status-text" data-form-status></p>';
+const evidenceSelect=record=>field("Evidence","evidence-select",'<select id="evidence-select">'+ (record?.evidence||[]).map(entry=>
+  '<option value="'+safe(entry.id)+'"'+(state.evidence===entry.id?' selected':'')+'>'+safe(entry.id+" · "+typeLabel[entry.kind])+'</option>').join("")+'</select>');
+function caseTable(records) {
+  return records.length?table(["Case","Category","Status","Risk",""],records.map(record=>[
+    '<button class="table-link" data-action="open" data-id="'+safe(record.id)+'">'+safe(record.title)+'</button><br><span class="mono quiet small">'+safe(record.id)+'</span>',
+    safe(record.tags?.[0]||"Uncategorised"),safe(record.status),riskPill(riskOf(record)),btn("Open","open",'data-id="'+safe(record.id)+'"')])):empty("No cases match the current filters.");
+}
+
+function overview() {
+  const records=state.cases,record=selectedCase();
+  const counts=Object.fromEntries(Object.keys(palette).map(band=>[band,records.filter(entry=>riskOf(entry)?.band===band).length]));
+  const assessed=Object.values(counts).reduce((a,b)=>a+b,0);
+  let cursor=0;
+  const gradient=Object.entries(counts).filter(([,count])=>count).map(([band,count])=>{
+    const start=cursor;cursor+=count*100/assessed;return palette[band]+" "+start+"% "+cursor+"%";
+  }).join(",");
+  const days=Array.from({length:7},(_,i)=>{
+    const date=offline?new Date("2026-11-22T05:00:00Z"):new Date();
+    date.setUTCDate(date.getUTCDate()-6+i);
+    const label=dayLabel(date);
+    return {label,amount:records.filter(entry=>dayLabel(entry.created_at)===label).length};
+  });
+  const stats=[["Cases",records.length,"Workspace inventory","cases"],["High or critical",counts.High+counts.Critical,"Risk prioritisation","risk"],
+    ["Evidence items",records.reduce((sum,entry)=>sum+(entry.evidence?.length||entry.evidence_count||0),0),"Acquired or fixture","vault"],
+    ["Live integrations",state.health?.public_dns==="enabled"?1:0,"External DNS only","system"]];
+  return '<section class="hero"><canvas class="hero-art" id="hero-art" aria-hidden="true"></canvas><div class="hero-content"><div class="kicker">PS01 · Rajasthan Police Hackathon 2026</div><h1>Investigation<br>command centre</h1><p>Triage scam messages, phishing links, suspicious websites and loan or investment apps in one case workspace.</p><div class="actions">'+
+   link("New investigation","newcase","primary")+link("Analyse message","message")+'</div></div></section>'+
+   '<div class="kpis">'+stats.map(([name,value,detail,route])=>'<button class="metric" data-action="route" data-id="'+route+'"><small>'+name+' <span>↗</span></small><strong>'+String(value).padStart(2,"0")+'</strong><span class="detail">'+detail+'</span></button>').join("")+'</div>'+
+   '<div class="grid">'+panel("Case intake trend",'<div class="trend" aria-label="Case intake over seven dates">'+days.map(day=>
+   '<button data-action="day" data-id="'+day.label+'" class="'+(state.day===day.label?'active':'')+'" aria-label="'+day.label+', '+day.amount+' case records"><span>'+day.amount+'</span><span class="bar" style="--height:'+Math.max(3,Math.min(68,day.amount*47))+'px"></span><span>'+day.label.split(" ")[0]+'</span></button>').join("")+
+   '</div><p class="small">'+safe(state.day?state.day+" · select Cases to review all records.":"Seven days · select a bar to filter the queue.")+'</p>',pill(offline?"Synthetic sample":"Case history",offline?"demo":"live"))+
+   panel("Risk distribution",'<div class="chart-layout"><div class="donut" style="background:'+(gradient?"conic-gradient("+gradient+")":"#343542")+'"><div class="donut-inner"><b>'+assessed+'</b><small>assessed</small></div></div><div class="legend">'+
+     Object.entries(counts).map(([band,count])=>'<button data-action="filter-risk" data-id="'+band+'"><span class="swatch" style="background:'+palette[band]+'"></span>'+band+' <b>'+count+'</b></button>').join("")+'</div></div>')+
+   '</div><div class="grid">'+panel("Investigation queue",caseTable(state.day?records.filter(entry=>dayLabel(entry.created_at)===state.day):records.slice(0,4)),state.day?btn("Clear date","day",'data-id=""'):link("All cases","cases"))+
+   panel("Evidence activity",record?.evidence?.length?arrList(record.evidence.slice(0,3),entry=>item(entry.id,typeLabel[entry.kind]+" · "+entry.source,dateLabel(entry.created_at))):empty("Choose a case to inspect its evidence."),scenarioMark(record))+'</div>'+opsSummary();
+}
+
+function casesView() {
+  const filtered=state.cases.filter(entry=>[entry.title,entry.id,...(entry.tags||[])].join(" ").toLowerCase().includes(state.query.toLowerCase())&&
+    (!state.caseStage||entry.status===state.caseStage)&&(!state.band||riskOf(entry)?.band===state.band));
+  return heading("Investigation cases","Search, prioritise and review case records.",false)+
+    panel("Case register",'<form id="case-filter" class="split-field">'+field("Search cases","case-query",input("case-query",state.query,'placeholder="Case, ID or tag"'))+
+    field("Status","case-stage",'<select name="case-stage" id="case-stage"><option value="">All statuses</option>'+options(["Open","In review","Closed"],state.caseStage)+'</select>')+
+    field("Risk band","case-band",'<select name="case-band" id="case-band"><option value="">All bands</option>'+options(Object.keys(palette),state.band)+'</select>')+
+    '<div class="row"><button class="btn" type="submit">Apply filters</button>'+btn("Clear","clear-filters")+'</div></form>'+caseTable(filtered),link("New case","newcase","primary"));
+}
+
+function caseForm(edit) {
+  const current=edit?selectedCase():null;
+  if(edit&&!current)return heading("Case details","Select a case to review.")+empty();
+  const buttons=edit?'<div class="actions" style="margin-bottom:11px">'+link("Evidence vault","vault")+link("Risk explanation","risk")+link("Reports","reports")+'</div>':"";
+  return heading(edit?current.title:"New investigation",edit?current.id+" · "+(current.synthetic?"Synthetic fixture":"Submitted evidence"):"Create an evidence workspace and set its triage priority.",edit)+
+   '<div class="grid equal">'+panel(edit?"Case record":"Case details",'<form id="'+(edit?"case-edit":"case-create")+'">'+
+   field("Case title","title",input("title",current?.title,'required minlength="3" maxlength="120" placeholder="e.g. Electricity cutoff SMS"'))+
+   '<div class="split-field">'+field("Priority","priority",'<select name="priority" id="priority">'+options(["Low","Normal","High","Urgent"],current?.priority||"Normal")+'</select>')+
+   (edit?field("Status","status",'<select name="status" id="status">'+options(["Open","In review","Closed"],current.status)+'</select>'):
+   !offline?field("Provenance","synthetic",'<select name="synthetic" id="synthetic"><option value="false">Submitted evidence</option><option value="true">Synthetic fixture</option></select>'):
+   '<div class="field"><span class="label">Provenance</span>'+pill("Offline demonstration","demo")+'</div>')+'</div>'+
+   field("Tags","tags",input("tags",current?.tags?.join(", "),'placeholder="Utility, SMS" maxlength="400"'))+
+   field("Analyst notes","notes",textArea("notes",current?.notes,'maxlength="4000" placeholder="Source, context and verification steps"'))+
+   submit(edit?"Save case":"Create case")+statusSlot+'</form>')+
+   panel(edit?"Case timeline":"Intake workflow",edit?buttons+arrList(current.evidence||[],entry=>item(entry.id,"Evidence submitted · "+entry.source,dateLabel(entry.created_at))):
+   arrList([["Create","Set title, priority and provenance."],["Acquire","Add a message, link or supported file."],["Review","Inspect risk contributions and case links."]],entry=>item(...entry)))+'</div>';
+}
+
+const indicatorsView=items=>arrList(items||[],entry=>item(typeLabel[entry.type]||entry.type,entry.value,entry.evidence_ref+" · "+entry.snippet));
+const findingsView=items=>arrList(items||[],entry=>item(entry.title,entry.snippet,entry.rule_id+" · "+entry.kind+" · "+entry.evidence_ref));
+function analyzeView(route) {
+  const record=selectedCase();
+  const [title,sub,types]={
+    message:["Message analysis","Inspect suspicious SMS, social messages and email headers.",["message","email"]],
+    url:["URL and domain","Explain suspicious characteristics in a submitted address.",["url","website","app_store"]],
+    apk:["APK intelligence","Review package metadata, requested permissions and extracted identifiers.",["apk"]]}[route];
+  const evidence=record?.evidence?.find(item=>item.id===state.evidence&&types.includes(item.kind))||record?.evidence?.filter(item=>types.includes(item.kind)).at(-1);
+  const listing=evidence?.analysis,fixture=HEX_DEMO.find(item=>route==="message"?item.type==="message":route==="url"?item.type==="website":item.type==="apk");
+  const form=route==="apk"?(offline?box("Synthetic manifest","Inspect fictional package metadata and permissions.")+btn("Load loan APK fixture","sample-case",'data-id="HEX-0253"',"primary"):
+    field("Android package","analysis-file",'<input type="file" id="analysis-file" name="file" accept=".apk" required>')):
+    field(route==="message"?"Submitted content":"URL or domain","analysis-text",route==="message"?
+      textArea("analysis-text",offline&&evidence?.text||"",'maxlength="60000" required placeholder="Paste the original SMS, message or email"'):
+      input("analysis-text",offline&&evidence?.text||"",'maxlength="4096" required placeholder="https://service-review.example/"'));
+  const controls=route==="message"?field("Format","analysis-kind",'<select id="analysis-kind" name="analysis-kind"><option value="auto">Auto-detect</option><option value="message">SMS or chat text</option><option value="email">Email headers and body</option></select>'):
+    route==="url"?field("Format","analysis-kind",'<select id="analysis-kind" name="analysis-kind"><option value="auto">Auto-detect URL / store link</option><option value="website">Website address</option></select>'):"";
+  const detail=listing?Object.entries(listing.details).filter(([,value])=>value!==""&&value!=null).
+    map(([key,value])=>term(key.replaceAll("_"," "),Array.isArray(value)?value.map(entry=>typeof entry==="object"?JSON.stringify(entry):entry).join(", "):value)).join(""):"";
+  const sensitive=listing?.details.sensitive_permissions?.length??0,total=listing?.details.permissions?.length??0;
+  const perms=route==="apk"&&listing?term("Sensitive permissions",sensitive+" of "+total)+
+   '<div class="scale" role="meter" aria-label="Sensitive Android permissions" aria-valuemin="0" aria-valuemax="'+Math.max(1,total)+'" aria-valuenow="'+sensitive+'"><span style="width:'+Math.round(100*sensitive/Math.max(1,total))+'%"></span></div>':"";
+  const scope=route==="url"?"Syntax analysis. Link destinations appear as evidence text.":route==="apk"?"Static analysis. APKs are never installed.":"Each finding includes a matched evidence snippet.";
+  return heading(title,sub)+'<div class="grid">'+panel("Evidence intake",'<form id="analyze" data-route="'+route+'">'+form+
+   (route==="apk"&&offline?"":controls+(!offline?'<div class="split-field">'+field("Source","source",input("source","Analyst submission",'required maxlength="200"'))+
+   field("Investigator notes","evidence-notes",input("evidence-notes","",'maxlength="4000"'))+'</div>':"")+
+   '<div class="actions">'+submit("Analyse evidence")+(offline?btn("Use synthetic sample","fill-sample",'data-id="'+fixture.id+'"'):"")+'</div>'+statusSlot)+'</form><p class="form-note">'+safe(scope)+'</p>',scenarioMark(record))+
+   '<div class="stack">'+panel("Evidence summary",listing?term("Evidence ID",evidence.id)+term("Source",evidence.source)+term("Version",listing.version)+
+   term("SHA-256",evidence.sha256||"Hash pending or unavailable")+perms+detail:empty("Submit evidence or select a case with this evidence type."),riskPill(listing?.risk))+
+   panel("Indicators",listing?indicatorsView(listing.indicators):empty(),listing?link("Entity graph","graph"):"")+'</div></div>'+
+   panel("Supporting findings",listing?findingsView(listing.findings):empty(),listing?link("Risk breakdown","risk"):"");
+}
+
+function riskView() {
+  const record=selectedCase(),evidence=record?.evidence?.find(entry=>entry.id===state.evidence)||best(record),risk=evidence?.analysis.risk;
+  const context=state.risks[record?.id]?.assessments?.find(row=>row.evidence_ref===evidence?.id);
+  return heading("Risk explanation","Trace each scored rule to its evidence and review what remains unknown.")+
+   (risk?'<div class="grid">'+panel("Triage assessment",evidenceSelect(record)+
+   '<div class="risk-lead"><div class="score">'+risk.score+'<small>/100</small></div>'+riskPill(risk)+'</div><div class="scale" role="meter" aria-label="Triage score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+risk.score+'"><span style="width:'+risk.score+'%"></span></div>'+
+   term("Confidence",risk.confidence)+term("Rule version",risk.rule_version)+term("Updated",dateLabel(risk.updated_at))+term("Evidence",risk.evidence_ref)+
+   term("Raw total",risk.raw_total)+'<p class="form-note">Each group contributes its strongest rule. Scores guide triage and require human review.</p>',scenarioMark(record))+
+   panel("Missing or contradictory evidence",arrList(risk.missing,value=>item("Missing",value))+'<div class="chipbar"></div>'+
+    (risk.contradictions.length?arrList(risk.contradictions,value=>item("Counterpoint",value)):empty("No contradictory evidence recorded.")))+'</div>'+
+   panel("Contributing rules",arrList(risk.contributions,rule=>item("+"+rule.weight+" · "+rule.title,rule.snippet,rule.rule_id+" · "+rule.group+" · "+rule.evidence_ref+" · "+rule.confidence)))+
+   (context?'<div style="margin-top:15px">'+panel("Contextual assessment",term("Triage score",context.score+" / 100 · "+context.band)+
+      term("Version",context.version)+term("Static assessment",context.base_score)+arrList(context.external_signals,rule=>
+      item("+"+rule.weight+" · "+rule.title,rule.snippet,rule.source+" · "+rule.observed_at)))+'</div>':""):
+   empty("Analyse evidence to generate a risk assessment."));
+}
+
+</script>
+<script>"use strict";
+function sandboxView() {
+  const record=selectedCase(), disabled=!offline&&(!record?.synthetic||!replayEvidence(record));
+  return heading("Website sandbox","Review the sequence of a fictional browser observation.")+
+   box("Synthetic replay","Replay reads an included fixture and sends zero target requests.")+
+   '<div class="grid">'+panel("Observation policy",term("Initial URL","https://wallet-review.example/")+term("Final URL","https://verify-wallet.example/review")+
+   term("Mode","Timed fixture replay")+term("Form actions","Metadata only")+term("Live worker",offline?"Unavailable in offline mode":state.health?.sandbox?.live||"Unavailable")+
+   '<div class="actions" style="margin-top:12px">'+btn("Play replay","play",'id="play" '+(disabled?'disabled':''),"primary")+btn("Reset","reset-replay")+link("Website investigation","website")+'</div>',pill("Synthetic","demo"))+
+   panel("Redirect and form trace",arrList([["302 redirect","wallet-review.example"],["200 final page","verify-wallet.example"],["Cross-host action","collect-review.example"]],
+   entry=>item(...entry)))+'</div>'+panel("Live console replay",'<div role="region" aria-label="Replay events" id="event-list" aria-live="polite">'+eventRows()+'</div>',
+   '<span id="event-count">'+pill(state.events.length+" events","demo")+'</span>');
+}
+function eventRows(){
+  return state.events.length?table(["Offset / event","Observation","Source / destination","Method / status","Evidence"],state.events.map(entry=>[
+    safe((entry.offset_ms/1000).toFixed(2)+"s")+"<br><span class='mono small'>"+safe(entry.id)+"</span>",
+    '<strong>'+safe(entry.category)+'</strong><br>'+safe(entry.detail)+'<br><span class="mono small">'+safe(entry.timestamp)+'</span>',
+    safe(entry.source)+"<br>"+safe(entry.destination),
+    safe((entry.method||"—")+" / "+(entry.status_code??"—")),
+    '<span class="mono small">'+safe(entry.evidence_ref)+'</span><br>'+pill(entry.severity,entry.severity.toLowerCase())])):empty("Play the fixture to reveal timestamped events.");
+}
+function fixtureReviews(record) {
+  if(!record?.reviews)return [];
+  const start=Date.parse(record.created_at);
+  const complaints=record.reviews.map((text,i)=>({text,stance:"Complaint",published_at:new Date(start+(i===2?1440:i*17)*60000).toISOString()}));
+  const positive=record.type==="apk"?"Fast approval and helpful service":record.type==="website"?"Payout credited on time":null;
+  return [...complaints,...(positive?[4,9].map(minute=>({text:positive,stance:"Positive",published_at:new Date(start+minute*60000).toISOString()})):[])]
+    .map(entry=>({...entry,provenance:"synthetic",corroboration:"none"}));
+}
+function osintView(reviews=false) {
+  const record=selectedCase(), evidence=best(record), report=state.intel[record?.id];
+  const mock=record&&offline&&record.complaint, sample=state.osintQuery.trim().toLowerCase();
+  const visible=!sample||[record?.domain,record?.title,record?.tag].some(value=>value?.toLowerCase().includes(sample));
+  if(reviews&&!offline)return verifiedReviewPanel(record);
+  if(reviews) {
+    const corpus=mock?fixtureReviews(record):[],counts=new Map();
+    for(const entry of corpus){
+      if(!counts.has(entry.text))counts.set(entry.text,{stance:entry.stance,dates:[]});
+      counts.get(entry.text).dates.push(entry.published_at);
+    }
+    const firstHour=corpus.filter(entry=>Date.parse(entry.published_at)-Date.parse(corpus[0].published_at)<3600000).length;
+    return heading("Public review analysis","Compare repeated wording, source credibility and independent corroboration.")+
+     box(offline?"Synthetic review corpus":"Collection unavailable",offline?"Fictional summaries illustrate complaint handling. Findings require independent verification.":"This service has no public review collector.")+
+     '<div class="grid">'+panel("Review patterns",counts.size?arrList([...counts],([text,group])=>
+      item(text,group.dates.length+" fictional mentions · "+group.stance,(group.dates.length>1?"Repeated wording · ":"")+dateLabel(group.dates[0]))):empty())+
+     panel("Source assessment",term("Source class",offline?"Fictional reviews":"Unavailable")+term("Sample size",corpus.length)+
+     term("Corroboration","None")+term("First-hour concentration",corpus.length?firstHour+" of "+corpus.length+" fixture posts":"Unavailable")+
+     term("Timing interpretation","Independent baseline required")+term("Risk contribution","0 points"))+'</div>';
+  }
+  const domains=unique((record?.evidence||[]).flatMap(entry=>entry.analysis.indicators.filter(ind=>ind.type==="domain")),ind=>ind.value);
+  return heading("OSINT and reputation","Inspect provenance, coverage and corroboration for external observations.")+
+   '<div class="grid">'+panel("Search",'<form id="osint-form">'+field(offline?"Search case fixtures":"Observed domain","indicator",
+   offline?input("indicator",state.osintQuery,'placeholder="wallet-review.example"'):
+   '<select id="indicator" name="indicator">'+domains.map(domain=>'<option value="'+safe(domain.value)+'" data-ref="'+safe(domain.evidence_ref)+'">'+safe(domain.value)+'</option>').join("")+'</select>')+
+   (!offline?'<label><input type="checkbox" name="dns-consent" required> Send the selected domain to public DNS</label><p class="form-note">Only the domain is sent. Availability depends on local configuration.</p>':"")+
+   '<div class="actions">'+submit(offline?"Search fixtures":"Query DNS")+link("Review analysis","reviews")+'</div>'+statusSlot+'</form>',scenarioMark(record))+
+   panel("Source coverage",term("Public DNS",offline?"Unavailable in offline demo":state.health?.public_dns||"Unknown")+term("Threat reputation","Connector unavailable")+
+   term("Review corroboration","Unverified")+term("Score effect","0 points"))+'</div>'+
+   panel("Search results",offline?(mock&&visible?item("Fictional complaint summary",record.complaint,"SYNTHETIC · UNVERIFIED · "+evidence?.id)+
+   term("Original source","https://complaints.example/"+record.id.toLowerCase())+term("Published","Fixture · "+dateLabel(record.created_at))+
+   term("Retrieved","Fixture preview · No external request")+term("Credibility","Fictional user reports")+term("Corroboration","None"):empty("No fictional sources match this query.")):
+   report?.results?.length?arrList(report.results,entry=>item(entry.claim,entry.source_name+" · "+entry.source_url,entry.provenance+" · "+entry.retrieved_at+" · "+entry.evidence_ref)):
+   empty(report?.message||"Run an opted-in DNS lookup to collect referenceable observations."),pill(offline?"Synthetic":report?.status||"Unavailable",offline?"demo":""));
+}
+
+function graphView() {
+  const record=selectedCase(),data=graphSelection(record),node=data.nodes.find(entry=>entry.id===state.node);
+  const types=[...new Set(graphData(record).nodes.map(row=>row.type))].sort();
+  const nodeSelect='<select id="graph-select" aria-label="Select an entity"><option value="">Choose an entity</option>'+
+    data.nodes.map(entry=>'<option value="'+safe(entry.id)+'"'+(entry.id===state.node?' selected':'')+'>'+safe((typeLabel[entry.type]||entry.type)+" · "+entry.value)+'</option>').join("")+'</select>';
+  return heading("Entity relationship graph","Inspect exact indicator links, supporting evidence and related cases.")+
+    '<div class="grid">'+panel("Investigation network",'<div class="graph-frame drag"><canvas id="graph-canvas" aria-label="Case entity network. Use the entity selector for keyboard navigation."></canvas><p class="graph-help">'+
+    (state.graphMode==="3d"?"Drag to rotate. Shift-drag or use Pan to move. ":"Drag to pan the 2D projection. ")+"Select a node to inspect its edge evidence."+'</p></div>'+
+    '<div class="actions" style="margin-top:9px">'+btn("Zoom in","graph-camera",'data-id="in"')+btn("Zoom out","graph-camera",'data-id="out"')+
+    btn("Pan","graph-camera",'data-id="pan" id="pan-toggle" aria-pressed="false"')+btn("Reset view","graph-camera",'data-id="reset"')+'</div>',
+    '<div class="row">'+["2d","3d"].map(mode=>btn(mode.toUpperCase(),"graph-mode",'data-id="'+mode+'" aria-pressed="'+(state.graphMode===mode)+'"',state.graphMode===mode?"primary":"")).join("")+'</div>')+
+    '<div class="stack">'+panel("Entity evidence",'<div class="split-field">'+field("Search nodes","graph-query",input("graph-query",state.graphQuery,'placeholder="Filter by value"'))+
+    field("Node type","graph-filter",'<select id="graph-filter"><option value="">All types</option>'+types.map(type=>'<option value="'+safe(type)+'" '+(type===state.graphFilter?'selected':'')+'>'+safe(typeLabel[type]||type)+'</option>').join("")+'</select>')+
+    '</div>'+field("Entity","graph-select",nodeSelect)+'<div id="node-detail">'+nodeDetail(data,node)+'</div>')+
+    panel("Related cases",data.related_cases.length?'<div class="chipbar">'+data.related_cases.map(id=>btn(id,"open",'data-id="'+safe(id)+'"')).join("")+'</div>':empty("No shared exact indicators recorded."),scenarioMark(record))+'</div></div>';
+}
+function nodeDetail(data,node) {
+  return node?term("Type",typeLabel[node.type]||node.type)+term("Value",node.value)+
+    arrList(data.edges.filter(edge=>edge.id===node.id),edge=>item(edge.case_id,edge.snippet,edge.evidence_ref+" · "+edge.confidence+" · "+edge.relation)):
+    empty("Select a node. Shared identifiers establish co-occurrence only.");
+}
+
+function vaultView() {
+  const record=selectedCase(),entries=record?.evidence||[];
+  const selected=entries.find(entry=>entry.id===state.focusedEvidence),revisions=state.revisions[state.focusedEvidence];
+  return heading("Evidence vault","Review evidence identifiers, original digests and acquisition records.")+
+    panel("Evidence inventory",entries.length?table(["Evidence","Type / source","SHA-256","Integrity"],entries.map(entry=>[
+    '<span class="mono">'+safe(entry.id)+'</span><br>'+safe(entry.filename),safe(typeLabel[entry.kind])+"<br>"+safe(entry.source),
+    '<span class="mono small break">'+safe(entry.sha256||"Hash pending or unavailable")+'</span>',offline?pill("Demo digest","demo"):
+    '<div class="actions">'+btn("Verify original","verify",'data-id="'+safe(entry.id)+'"')+btn("History","revision-history",'data-id="'+safe(entry.id)+'"')+'</div>'])):empty(),scenarioMark(record))+
+    (selected?'<div style="margin-top:15px">'+panel("Evidence detail",term("Evidence",selected.id)+term("Acquisition",dateLabel(selected.created_at))+
+    term("Source",selected.source)+(revisions?arrList(revisions,row=>item("Revision "+row.revision,row.version,dateLabel(row.updated_at))):"")+
+    (!offline&&state.role!=="viewer"?btn("Reanalyse verified original","reanalyze",'data-id="'+safe(selected.id)+'"'):""))+'</div>':"")+
+    '<div style="height:15px"></div>'+panel(offline?"Acquisition mode":"Upload evidence",offline?box("Offline demo","Locally entered content stays in browser storage when available. Use connected mode to retain an original."):
+    '<form id="upload-evidence">'+field("Evidence file","evidence-file",'<input type="file" id="evidence-file" name="file" accept=".apk,.eml,.txt,.pdf,.jpg,.jpeg,.png" required>')+
+    field("Acquisition source","upload-source",input("upload-source","Analyst upload",'required maxlength="200"'))+
+    field("Notes","upload-notes",input("upload-notes","",'maxlength="4000"'))+submit("Acquire file")+statusSlot+'</form>');
+}
+function assistantView() {
+  const record=selectedCase(), explanation=state.explanations[record?.id],risk=riskOf(record);
+  const base=risk?"The highest evidence score is "+risk.score+"/100 ("+risk.band+"). Review the cited findings and verify the claimed source independently.":"Analyse evidence to generate an explanation.";
+  return heading("Local AI assistant","Review an evidence-linked explanation and see the configured model status.")+
+    '<div class="grid">'+panel("Explanation",box(offline?"Deterministic demo":"Deterministic",explanation?.summary||base)+
+    (explanation?.model_inference?item(explanation.model_inference.label,explanation.model_inference.text,
+      explanation.model+" · "+dateLabel(explanation.created_at)):"")+
+    (state.aiFixture?item("Synthetic model-response preview","Compare the matched indicators with independent source records. Use the evidence reference to locate the original submission.",risk?.evidence_ref||"Synthetic fixture"):"")+
+    (explanation?.model_status?'<p class="form-note">Model status · '+safe(explanation.model_status)+'</p>':"")+
+    '<div class="actions">'+btn(offline?"Show model-response preview":"Request local explanation","explain","","primary")+'</div>',
+    pill(offline?"Model unavailable":state.health?.local_model?.state||"Unknown",offline?"demo":""))+
+    panel("Supporting rules",risk?arrList(risk.contributions.slice(0,8),value=>item(value.rule_id,value.title,value.evidence_ref)):empty())+'</div>'+
+    questionPanel(record);
+}
+function reportsView() {
+  const record=selectedCase(),data=record?demoReport(record):null;
+  const technical=state.reportProfile==="technical";
+  return heading("Investigation reports","Compare executive and technical case handoffs and download the selected format.")+
+    (data?'<div class="grid">'+panel(technical?"Technical report preview":"Executive report preview",term("Case",record.id+" · "+record.title)+term("Scope",record.synthetic?"Synthetic investigation exercise":"Submitted evidence")+
+    term("Summary",data.summary)+term("Evidence",record.evidence?.length||0)+term("Evidence hashes","See attached inventory")+
+    term("Risk",riskOf(record)?riskOf(record).score+"/100 · "+riskOf(record).band:"Unassessed")+
+    term("Attribution","Evidence references accompany observations")+term("Limitations","Analyst verification required"),scenarioMark(record))+
+    panel("Export case record",field("Report template","report-profile",'<select id="report-profile"><option value="technical" '+(technical?'selected':'')+'>Full technical</option><option value="executive" '+(technical?'':'selected')+'>Executive</option></select>')+
+    '<p class="small">'+(technical?"Detailed source records, observations, identifiers and custody.":"Plain-language findings, case priorities, sources and recommendations.")+'</p>'+
+    '<div class="actions" style="margin-top:12px">'+btn("Download PDF","report",'data-id="pdf"',"primary")+btn("Download JSON","report",'data-id="json"')+
+     btn("Download CSV","report",'data-id="csv"')+btn("Printable HTML","report",'data-id="html"')+'</div>')+'</div>':empty("Select or create a case to export a report."));
+}
+function intelligenceView() {
+  const record=selectedCase(),data=graphData(record);
+  const regions=Object.entries(state.cases.filter(entry=>entry.synthetic&&entry.region).reduce((d,entry)=>
+    (d[entry.region]=(d[entry.region]||0)+1,d),{})).sort((a,b)=>b[1]-a[1]);
+  return heading("Threat intelligence","Review identifiers, case overlap and location evidence.")+
+    '<div class="grid">'+panel("Extracted indicators",indicatorsView((record?.evidence||[]).flatMap(entry=>entry.analysis.indicators)),scenarioMark(record))+
+    '<div class="stack">'+panel("Shared indicator links",data.related_cases.length?arrList(data.related_cases,id=>item(id,"Exact typed indicator overlap","See graph for evidence references")):empty("No related cases identified."),link("Open graph","graph"))+
+    panel("Location evidence",regions.length?
+      '<div class="graph-frame"><canvas id="location-canvas" style="height:178px" aria-hidden="true"></canvas></div>'+
+      '<p class="form-note">Approximate city positions. Intensity represents fictional acquisition counts.</p>'+
+      '<div class="chipbar" aria-label="Location counts">'+regions.map(([name,count])=>'<span class="chip">'+safe(name+" · "+count)+'</span>').join("")+'</div>':
+      empty("No verified location evidence."),pill(offline?"Synthetic regions":"Case evidence",offline?"demo":""))+'</div></div>';
+}
+function systemView(audit=false) {
+  const record=selectedCase(),health=state.health,ledger=state.ledger[record?.id];
+  if(audit) return heading("Settings and audit","Inspect access role, retention scope and case custody events.")+
+    '<div class="grid">'+panel("Session settings",term("Mode",offline?"Offline demonstration":"Connected service")+term("Access role",state.role||"Demo analyst")+
+    term("Storage",offline?"Browser storage where available":"SQLite and hashed originals")+
+    (offline?link("Access screen","login"):btn("Sign out","logout")))+panel("Custody events",offline?
+    (record?.evidence?.length?arrList(record.evidence,entry=>item("Demo acquisition",entry.id,dateLabel(entry.created_at))):empty()):
+    ledger?arrList(ledger.events,event=>item(event.action,event.reference,event.time+" · "+event.actor)):empty("Select a connected case to load its ledger."),
+    ledger?pill(ledger.valid?"Local chain verified":"Integrity warning",ledger.valid?"live":"critical"):offline?pill("Demo","demo"):"")+'</div>';
+  return heading("System health","Check service, analysis, provenance and optional integrations.",false)+
+    '<div class="grid equal">'+panel("Runtime services",term("Workspace",offline?"Offline HTML":health?.service||"Contacting service")+term("Database",offline?"Browser fixture":health?.database||"Unknown")+
+    term("Risk engine",HEX_CONFIG.version)+term("Model",offline?"Unavailable":health?.local_model?.state||"Unknown")+term("Public DNS",offline?"Unavailable":health?.public_dns||"Unknown")+
+    term("Live sandbox",offline?"Unavailable":health?.sandbox?.live||"Unavailable")+term("Sandbox replay","Ready · Synthetic")+term("Checked at",dateLabel(health?.checked_at)),btn("Refresh","health"))+
+    panel("Provenance labels",arrList([["Submitted","Evidence acquired by an analyst."],["Live","Observation obtained through a configured DNS resolver."],
+    ["Synthetic","Fictional records, replay events and model-response previews."],["Unavailable","Integration disabled, missing or unreachable."]],entry=>item(...entry)))+'</div>';
+}
+function loginView() {
+  return '<div class="login"><div class="kicker">HEX SENTINEL AI · Access control</div>'+panel("Investigator access",
+    '<p>Open the investigation workspace with '+(offline?"the demo analyst role.":"a local role token.")+'</p>'+
+    (offline?box("Offline demo","This screen illustrates access control. Connected mode enforces token permissions.")+
+    btn("Enter demo workspace","demo-login","","primary"):'<form id="login-form">'+field("Investigation token","token",input("token","",
+    'type="password" required minlength="24" autocomplete="off" placeholder="Paste your local access token"'))+
+    submit("Unlock workspace")+statusSlot+'</form>')+term("Analyst","Acquire and analyse evidence")+term("Viewer","Read cases and export reports"))+'</div>';
+}
+
+</script>
+<script>"use strict";
+
+const currentObservations=record=>state.observations[record?.id]||[];
+const latestObservation=(record,kind)=>currentObservations(record).filter(value=>value.kind===kind).at(-1);
+const observedIndicators=(record,types)=>unique((record?.evidence||[]).flatMap(item=>item.analysis.indicators.filter(row=>types.includes(row.type))),row=>row.value);
+const selectRecords=(id,rows,label="Choose evidence")=>'<select id="'+id+'" name="'+id+'" required><option value="">'+safe(label)+'</option>'+rows.map(row=>
+  '<option value="'+safe(row.value)+'" data-ref="'+safe(row.evidence_ref)+'">'+safe(row.value)+'</option>').join("")+'</select>';
+const sourceTag=(status)=>pill(status,status==="live"||status==="complete"?"live":status==="synthetic"?"demo":"");
+const sourceLabel={dns:"DNS",rdap:"Registry",ct:"Certificate transparency",network:"Routing",fdroid:"Public catalogue"};
+const evidenceControl=(id)=>btn("Open "+id,"evidence-link",'data-id="'+safe(id)+'"');
+
+function opsSummary(){
+  const record=selectedCase(),evidence=state.cases.flatMap(row=>row.evidence||[]);
+  const counts=kind=>new Set(evidence.flatMap(row=>row.analysis.indicators.filter(item=>item.type===kind).map(item=>item.value))).size;
+  const summaries=[
+    ["Pending cases",state.cases.filter(row=>row.status!=="Closed").length,"cases"],
+    ["Website evidence",evidence.filter(row=>["website","url"].includes(row.kind)).length,"website"],
+    ["Observed domains",counts("domain"),"domain"],["Phone identifiers",counts("phone"),"history"],
+    ["UPI candidates",counts("upi_candidate"),"history"],["APK results",evidence.filter(row=>row.kind==="apk").length,"apps"]
+  ];
+  const runtime=[["Database",offline?"Fixture storage":state.health?.database||"Unknown"],["Observation worker",offline?"Synthetic replay":state.health?.sandbox?.live||"Unavailable"],
+    ["Local model",offline?"Synthetic preview":state.health?.local_model?.state||"Unavailable"]];
+  return '<div class="grid">'+panel("Intelligence inventory",'<div class="metric-mini">'+summaries.map(([label,value,view])=>
+    '<button class="metric" data-action="route" data-id="'+view+'"><small>'+label+'</small><strong>'+value+'</strong></button>').join("")+'</div>',
+    pill(offline?"Synthetic workspace":"Loaded case evidence",offline?"demo":""))+
+    panel("Investigation services",runtime.map(([key,value])=>term(key,value)).join("")+
+    term("Available campaign links",offline?caseMatches(record).length:"Open Campaign Detection")+
+    '<div class="actions" style="margin-top:10px">'+link("Campaign detection","campaign")+link("Threat analytics","analytics")+'</div>')+'</div>';
+}
+
+function graphSelection(record){
+  const data=graphData(record),query=state.graphQuery.trim().toLowerCase();
+  const nodes=data.nodes.filter(node=>(!state.graphFilter||node.type===state.graphFilter) && (!query||node.value.toLowerCase().includes(query)));
+  const ids=new Set(nodes.map(node=>node.id)),edges=data.edges.filter(edge=>ids.has(edge.id));
+  return {...data,nodes,edges,related_cases:data.related_cases.filter(id=>edges.some(edge=>edge.case_id===id))};
+}
+
+function domainFixture(record) {
+  if(!record?.domain)return null;
+  const host=record.domain,ref=best(record)?.id,at=record.created_at;
+  const values=[
+    {kind:"registration",source_record_id:"SRC-DEMO-RDAP",source_name:"Fictional registry",source_url:"https://registry.example/",value:host,
+     registrar:"Example Registry Desk",events:{registration:"2026-11-12T05:00:00Z","last changed":"2026-11-18T05:00:00Z",expiration:null},
+     domain_age_days:10,nameservers:["ns1.registry.example"],retrieved_at:at,provenance:"synthetic"},
+    {kind:"dns",source_record_id:"SRC-DEMO-DNS",source_name:"Fictional resolver",source_url:"https://resolver.example/",value:"192.0.2.44",
+     name:host,type:"A",ttl:300,dnssec:"unconfirmed",retrieved_at:at,provenance:"synthetic"},
+    {kind:"certificate_transparency",source_record_id:"SRC-DEMO-CT",source_name:"Fictional transparency log",source_url:"https://certs.example/",value:"Illustrative certificate",
+     names:["portal."+host],issuer:"Example Demo CA",not_before:"2026-11-13T05:00:00Z",not_after:"2027-02-13T05:00:00Z",
+     retrieved_at:at,provenance:"synthetic"}
+  ];
+  return {evidence_ref:ref,host,registered_domain:host,subdomains:["portal."+host],addresses:["192.0.2.44"],
+    first:at,timeline:[{type:"registration",at:values[0].events.registration,record_id:"SRC-DEMO-RDAP"},
+      {type:"certificate validity begins",at:values[2].not_before,record_id:"SRC-DEMO-CT"},
+      {type:"DNS retrieval",at,record_id:"SRC-DEMO-DNS"},{type:"case acquisition",at,record_id:ref}],
+    sources:values.map((entry,i)=>({source:["rdap","dns","ct"][i],status:"synthetic",results:[{...entry,evidence_ref:ref}],gaps:[]}))};
+}
+function domainView() {
+  const record=selectedCase(),data=offline?domainFixture(record):latestObservation(record,"domain");
+  const domains=observedIndicators(record,["domain"]);
+  const rows=data?.sources.flatMap(src=>src.results)||[];
+  const details=rows.find(row=>row.kind==="registration");
+  const lookup='<form id="domain-query">'+field("Observed hostname","domain-host",selectRecords("domain-host",domains))+
+    '<div class="check-stack">'+["dns","rdap","ct","network"].map(name=>'<label><input type="checkbox" name="sources" value="'+name+'" '+(["dns","rdap"].includes(name)?'checked':'')+'> '+sourceLabel[name]+'</label>').join("")+
+    '</div><label><input required type="checkbox" name="consent"> Send hostname to the selected public providers</label>'+
+    '<div class="actions" style="margin-top:10px">'+submit("Retrieve intelligence")+'</div>'+statusSlot+'</form>';
+  const schema=data?term("Registered domain",data.registered_domain)+term("Registrar",details?.registrar||"Not available")+
+    term("Domain age",details?.domain_age_days!=null?details.domain_age_days+" days at lookup":"Not available")+
+    term("Delegation DNSSEC",details?.dnssec_delegation_signed==null?"Not available":details.dnssec_delegation_signed?"Registry reports signed":"Registry reports unsigned")+
+    term("Nameservers",details?.nameservers?.join(", ")||"Not available")+term("Passive subdomains",data.subdomains.join(", ")||"Not available"):
+    empty("Choose stored evidence and retrieve observations.");
+  const ipView=data?.addresses?.length?'<div class="relationship-flow"><span class="chip">'+safe(data.host)+'</span><span aria-hidden="true">→</span>'+
+    data.addresses.map(address=>'<span class="chip mono">'+safe(address)+'</span>').join("")+'</div>':empty("No address records were returned.");
+  return heading("Domain intelligence","Read registration, DNS and certificate observations with source and retrieval times.")+
+    (offline?box("Synthetic fixture","The registration dates, DNS addresses and certificates on this screen are fictional."): "")+
+    '<div class="grid">'+panel("Registration",schema,scenarioMark(record))+
+    panel("Provider coverage",offline?arrList(data?.sources||[],row=>item(sourceLabel[row.source],"Recorded simulation","Synthetic")):lookup)+'</div>'+
+    '<div class="grid">'+panel("DNS and registration timeline",arrList(data?.timeline||[],row=>item(row.type,dateLabel(row.at),row.record_id)))+
+    panel("Domain-to-IP relationships",ipView)+ '</div>'+
+    panel("Source observations",rows.length?table(["Kind","Value","Source / retrieval","Evidence"],rows.map(row=>[
+      safe(row.type||row.kind),'<span class="break">'+safe(row.value)+'</span>'+(row.issuer?'<br>'+safe(row.issuer):"")+
+         (row.names?.length?'<br>'+safe(row.names.join(", ")):""),
+      safe(row.source_name)+"<br>"+safe(dateLabel(row.retrieved_at))+"<br>"+safe(row.source_url),
+      safe(row.source_record_id)+"<br>"+safe(row.evidence_ref)+" "+sourceTag(row.provenance)])):
+      data?arrList(data.sources,row=>item(sourceLabel[row.source]||row.source,row.gaps.join(" · "),row.status)):empty("No source results yet."));
+}
+
+function websiteView() {
+  const record=selectedCase(),list=currentObservations(record).filter(row=>row.kind==="sandbox"&&row.provenance==="live"),run=list.at(-1);
+  const choices=(record?.evidence||[]).filter(row=>["url","website"].includes(row.kind)).map(row=>({value:row.analysis.details.submitted,evidence_ref:row.id}));
+  const status=offline?"Fixture replay":state.health?.sandbox?.live||"unavailable";
+  const controls=offline?box("Offline replay","The offline demonstration uses a fictional event trace with zero network requests.")+link("Open website sandbox","sandbox","primary"):
+    '<form id="live-observe">'+field("Submitted website evidence","observe-url",selectRecords("observe-url",choices))+
+    '<label><input type="checkbox" name="consent" required> Approve a bounded public GET and validated redirects</label>'+
+    '<div class="actions" style="margin-top:9px">'+submit("Observe document")+' '+link("Configuration","settings")+'</div>'+statusSlot+'</form>';
+  const requests=run?.requests||[];
+  const screenshot=run?.worker?.policy_status==="verified"&&/^[A-Za-z0-9+/=]{1,870000}$/.test(run.worker.screenshot)?
+    '<img class="snapshot" alt="Inert rendered snapshot of the selected public document" src="data:image/png;base64,'+safe(run.worker.screenshot)+'"><p class="small muted">'+safe(run.worker.caption)+'</p>':
+    empty("A verified inert snapshot will appear after successful collection and rendering.");
+  return heading("Website investigation","Inspect a public document, its redirect chain and an inert snapshot.")+
+    '<div class="grid">'+panel("Observation controls",controls,sourceTag(status))+
+    panel("Collection boundary",term("Public gateway","One bounded GET per validated step")+term("Renderer","Disposable networkless browser")+
+    term("Website scripts and resources","Reference extraction only")+term("Form actions","Recorded as metadata")+term("Status",run?.capture_status||status))+'</div>'+
+    '<div class="grid">'+panel("Redirect chain",requests.length?'<div class="relationship-flow">'+requests.map(row=>'<span class="chip">'+safe(row.status_code+" · "+row.host)+'</span>').join('<span aria-hidden="true">→</span>')+'</div>':
+      offline?arrList(HEX_EVENTS.slice(0,2),row=>item(row[1],row[3],"Synthetic replay")):empty("No public network observations."))+
+    panel("Render evidence",screenshot,run?.worker?.policy_status==="verified"?pill("Policy verified","live"):"")+'</div>'+
+    panel("Network events",run?.events?.length?table(["Time","Observation","Supporting evidence"],run.events.map(row=>[
+      safe(dateLabel(row.timestamp)),safe(row.category+" · "+row.detail),safe(run.id+" / "+row.evidence_ref)])):
+      offline?empty("Open Website Sandbox to play the synthetic network events."):empty("Start a public document observation."))+
+    (run?.document?'<div class="grid" style="margin-top:15px">'+panel("Forms",arrList(run.document.forms,row=>item(row.declared_method,row.action||"Unavailable",
+      row.fields.map(field=>field.name||field.type).join(", "))))+panel("Resource references",arrList(run.document.resources.slice(0,25),row=>item(row.element,row.url,"Reference only · no request")))+'</div>':"");
+}
+
+function appsView() {
+  const record=selectedCase(),observations=currentObservations(record).filter(row=>row.kind==="app_listing"),data=observations.at(-1);
+  const packages=observedIndicators(record,["package"]);
+  const apk=record?.evidence?.findLast(row=>row.kind==="apk");
+  const fixture=HEX_DEMO.find(row=>row.type==="apk");
+  const inputControls=offline?box("Synthetic listing","Manifest and permission observations use the included fictional RapidCredit case.")+
+      btn("Open loan APK case","sample-case",'data-id="'+fixture.id+'"')+link("APK analysis","apk"):
+    '<form id="app-identity">'+field("App name or package ID","app-name",input("app-name","",'required maxlength="200"'))+
+    submit("Acquire app identifier")+statusSlot+'</form><hr class="divider"><form id="listing-query">'+
+    field("Observed package","listing-package",selectRecords("listing-package",packages))+
+    '<label><input type="checkbox" name="consent" required> Send the package ID to the public Android catalogue</label>'+
+    '<div class="actions" style="margin-top:9px">'+submit("Lookup public listing")+'</div>'+statusSlot+'</form>';
+  const results=data?.results||[];
+  const coverage=offline?term("App","RapidCredit Demo")+term("Package",fixture.apk.package)+term("Developer","Not available")+
+    term("Version",fixture.apk.versionName)+term("Source","Synthetic manifest fixture"):
+    results.length?arrList(results,row=>item(row.value,"Suggested version code "+(row.suggested_version_code??"unknown")+
+        " · "+row.versions.map(version=>version.version_name).join(", "),row.source_record_id+" · "+row.source_url+" · "+row.provenance)):
+    data?empty(data.gaps.join(" · ")):empty("Collect a catalogue result to show public versions.");
+  return heading("Application intelligence","Investigate an Android identity, public versions and permission evidence.")+
+    '<div class="grid">'+panel("Application intake",inputControls,scenarioMark(record))+panel("Public listing",coverage,sourceTag(offline?"synthetic":data?.status||"unavailable"))+'</div>'+
+    '<div class="grid">'+panel("APK inspection",apk?term("Package",apk.analysis.details.package)+term("Signature",apk.analysis.details.signature_verification||"Fixture only")+
+    term("SDK markers",apk.analysis.details.sdk_candidates?.join(", ")||"None observed in the sample")+link("Open APK analysis","apk"):
+    link("Open APK analysis","apk"))+panel("Public review coverage",term("Collection","Investigator-supplied public references")+
+      term("Attribution","Opinions or allegations")+link("Review analysis","reviews"))+'</div>';
+}
+
+function offlineMatches(record) {
+  if(!record)return [];
+  const data=graphData(record);
+  const weights={upi_candidate:42,phone:40,package:32,email:28,domain:21,url:22,ip:8};
+  const matches=[];
+  for(const id of data.related_cases){
+    const owned=data.edges.filter(edge=>edge.case_id===record.id),other=data.edges.filter(edge=>edge.case_id===id);
+    const groups=new Map();
+    for(const edge of owned){
+      const linked=other.find(row=>row.id===edge.id);
+      if(!linked)continue;
+      const signal={...edge,related_evidence_ref:linked.evidence_ref,weight:weights[edge.type]||5};
+      const name=edge.type==="url"?"domain":edge.type;
+      if(!groups.has(name)||groups.get(name).weight<signal.weight)groups.set(name,signal);
+    }
+    const signals=[...groups.values()].sort((a,b)=>b.weight-a.weight);
+    matches.push({match_id:"CMP-DEMO-"+id.slice(-4),related_case_id:id,title:state.cases.find(row=>row.id===id)?.title||id,
+      similarity:Math.min(100,signals.reduce((sum,row)=>sum+row.weight,0)),signals});
+  }
+  return matches.sort((a,b)=>b.similarity-a.similarity);
+}
+const caseMatches=record=>offline?offlineMatches(record):(state.matches[record?.id]||[]);
+function campaignView() {
+  const record=selectedCase(),matches=caseMatches(record);
+  return heading("Campaign detection","Inspect weighted historical overlap and follow the evidence into related cases.")+
+    box(offline?"Synthetic campaign examples":"Association scope","Similarity indicates which records to review together. Shared infrastructure and identifiers alone cannot establish common ownership.")+
+    '<div class="grid">'+panel("Historical matches",matches.length?table(["Related case","Similarity","Indicators",""],matches.map(row=>[
+      safe(row.title)+"<br><span class='mono small'>"+safe(row.match_id)+"</span>",
+      '<strong>'+row.similarity+' / 100</strong><div class="scale"><span style="width:'+row.similarity+'%"></span></div>',
+      safe(row.signals.length),btn("Open","open",'data-id="'+safe(row.related_case_id)+'"')])):empty("No eligible historical matches."),
+      link("Explore relationship graph","graph"))+
+    panel("Scoring method",term("Signal types","Typed identifiers, exact overlap and recorded wording")+term("Caps","Correlated network signals are capped in connected mode.")+
+      term("Implication","Case review priority")+term("Risk effect","0 points"))+'</div>'+
+    panel("Evidence behind matches",matches.length?arrList(matches.flatMap(row=>row.signals.map(signal=>({...signal,case:row.related_case_id}))),signal=>
+      item("+"+signal.weight+" · "+(typeLabel[signal.type]||signal.type),signal.value,
+        signal.evidence_ref+" ↔ "+signal.related_evidence_ref+" · "+signal.case)):empty("No supporting links yet."));
+}
+
+</script>
+<script>"use strict";
+
+function offlineSearch(filters) {
+  const query=(filters.q||"").trim().toLowerCase(),kind=filters.kind||"";
+  return state.cases.flatMap(record=>{
+    const date=record.created_at.slice(0,10);
+    if(filters.start&&date<filters.start||filters.end&&date>filters.end)return [];
+    const scope={id:record.id,title:record.title,synthetic:record.synthetic,created_at:record.created_at};
+    const entries=(record.evidence||[]).flatMap(ev=>[
+      {evidence_ref:ev.id,type:"hash",value:ev.sha256||""},
+      ...ev.analysis.indicators.map(it=>({evidence_ref:ev.id,type:it.type,value:it.value}))]);
+    if(kind==="campaign")return caseMatches(record).filter(row=>!query||
+      [row.match_id,row.related_case_id,row.title].join(" ").toLowerCase().includes(query)).map(row=>({...scope,type:kind,value:row.match_id}));
+    if(!kind&&[record.id,record.title].join(" ").toLowerCase().includes(query))return [{...scope,type:"case",value:record.title}];
+    return entries.filter(row=>(!kind||row.type===kind)&&row.value.toLowerCase().includes(query)).map(row=>({...scope,...row}));
+  }).slice(0,50);
+}
+
+function historyView() {
+  const filters=state.historyFilters, result=offline?offlineSearch(filters):state.historyRecords;
+  const saved=state.savedSearches;
+  return heading("Historical case search","Find a case, indicator, campaign reference or SHA-256 across stored investigations.",false)+
+    '<div class="grid">'+panel("Query archive",'<form id="history-form" class="split-field">'+
+    field("Search value","history-q",input("history-q",filters.q,'placeholder="Case, indicator or SHA-256" maxlength="240"'))+
+    field("Indicator type","history-kind",'<select id="history-kind" name="history-kind"><option value="">All</option>'+
+      ["domain","ip","url","phone","email","upi_candidate","package","hash","campaign"].map(kind=>'<option value="'+kind+'" '+(filters.kind===kind?'selected':'')+'>'+safe(typeLabel[kind]||kind)+'</option>').join("")+'</select>')+
+    field("Acquired from","history-start",input("history-start",filters.start,'type="date"'))+
+    field("Acquired to","history-end",input("history-end",filters.end,'type="date"'))+
+    '<div class="actions">'+submit("Search archive")+btn("Save current search","save-history")+'</div>'+statusSlot+'</form>')+
+    panel("Saved searches",saved.length?arrList(saved,entry=>'<div class="item"><strong>'+safe(entry.label)+'</strong><p class="small">'+safe(entry.query||"All cases")+
+      '</p>'+btn("Run search","saved-history",'data-id="'+safe(entry.id)+'"')+'</div>'):empty("Save a query to reuse its filters."))+'</div>'+
+    panel("Matches",result.length?table(["Case","Indicator","Acquired",""],result.map(row=>[
+       safe(row.title)+"<br><span class='mono small'>"+safe(row.id)+"</span>",
+       safe(typeLabel[row.type]||row.type||"Case")+"<br><span class='mono small break'>"+safe(row.value||row.sha256||row.evidence_ref||row.id)+"</span>",
+       safe(dateLabel(row.created_at))+"<br>"+sourceTag(row.synthetic?"synthetic":"submitted"),
+       btn("Open","open",'data-id="'+safe(row.id)+'"')])):empty("No matches for the current filters."),
+      state.historyNext!=null&&!offline?btn("Next results","next-history"):"");
+}
+function reputationView() {
+  const record=selectedCase(),osint=latestObservation(record,"domain"),reviews=latestObservation(record,"reviews");
+  const providers=offline?[["Registry","Synthetic"],["Certificate log","Synthetic"],["Public resolver","Synthetic"]]:
+    Object.entries(state.health?.sources||{}).map(([key,item])=>[item.label,item.enabled?(item.last_request?.status||"Enabled, no lookup"):"Disabled"]);
+  const counts=Object.entries((osint?.sources||[]).reduce((dict,row)=>(dict[row.source]=(dict[row.source]||0)+row.results.length,dict),{}));
+  return heading("Reputation intelligence","Compare source availability and the evidentiary weight of observations.")+
+   '<div class="grid">'+panel("Provider status",arrList(providers,([name,status])=>item(name,status)))+
+   panel("Source reliability",arrList([["Registry record","Authoritative within its registration scope"],["Resolver or certificate log","Public technical observation"],
+    ["Review or complaint","Opinion or allegation"],["Malware-reputation feed","Unavailable"]],row=>item(...row)))+'</div>'+
+   '<div class="grid">'+panel("Source record distribution",counts.length?arrList(counts,([name,total])=>item(sourceLabel[name]||name,total+" technical source records")):
+    empty(offline?"Open the synthetic Domain Intelligence screen for example records.":"No domain source records collected."),link("Domain intelligence","domain"))+
+    panel("Review coverage",term("Recorded references",reviews?.results?.length||0)+term("Risk contribution",0)+link("Inspect reviews","reviews"))+'</div>';
+}
+function settingsView() {
+  const stateRows=Object.entries(state.health?.sources||{});
+  return heading("Settings","Review enabled adapters, local inference tasks and observation policy.",false)+
+    '<div class="grid">'+panel("Public-source adapters",stateRows.length?arrList(stateRows,([key,row])=>
+    item(row.label,row.enabled?"Enabled":"Disabled",row.last_request?row.last_request.status+" · "+dateLabel(row.last_request.at):"No recorded lookup")):
+    empty("External adapters are disabled in the local-file demo."),link("Reputation intelligence","reputation"))+
+    panel("Local processing",term("Model",state.health?.local_model?.model||"Not configured")+term("Case storage",offline?"Browser local storage":"SQLite")+
+    term("Worker",state.health?.sandbox?.live||"Unavailable")+term("Evidence isolation","Preserved original plus versioned analysis")+
+    link("System health","system"))+'</div>'+
+    panel("Task routing",arrList(Object.entries(state.health?.inference_tasks||{classifier:{engine:"Local phrase rules",state:"ready"},
+      explanation:{engine:"Fictional response preview",state:"synthetic"}}),([name,details])=>item(name.replaceAll("_"," "),details.engine||"No local engine configured",details.state)));
+}
+function analyticsView() {
+  const records=state.cases,located=records.filter(row=>row.synthetic&&row.region);
+  const local=Object.entries(located.reduce((dict,row)=>(dict[row.region]=(dict[row.region]||0)+1,dict),{}));
+  const counts=Object.keys(palette).map(band=>[band,records.filter(row=>riskOf(row)?.band===band).length]);
+  return heading("Threat analytics","Explore case triage bands and locations supported by the evidence.",false)+
+    '<div class="grid">'+panel("Global case globe",'<div class="graph-frame drag"><canvas id="threat-globe" aria-hidden="true"></canvas><p class="graph-help">Drag to rotate. Use the zoom and view controls for a keyboard alternative.</p></div>'+
+      '<div class="actions" style="margin-top:10px">'+btn("Zoom in","globe",'data-id="in"')+btn("Zoom out","globe",'data-id="out"')+
+      btn("Reset view","globe",'data-id="reset"')+btn("Locations list","globe",'data-id="list"')+'</div><div id="globe-locations" class="chipbar" aria-label="Location counts">'+
+      local.map(([name,count])=>'<span class="chip">'+safe(name+" · "+count)+'</span>').join("")+'</div>',
+      sourceTag(offline?"synthetic":located.length?"synthetic":"unavailable"))+
+    '<div class="stack">'+panel("Risk distribution",arrList(counts,([band,total])=>'<div class="item">'+riskPill({band})+
+      '<p class="small">'+total+' cases</p></div>'))+
+    panel("Location coverage",located.length?arrList(local,([city,count])=>item(city,count+" fictional case records","Approximate fixture position")):
+      empty("No case location evidence is available."))+'</div></div>';
+}
+
+function verifiedReviewPanel(record) {
+  const packet=latestObservation(record,"reviews");
+  const rows=(record?.evidence||[]).map(entry=>({value:entry.id,evidence_ref:entry.id}));
+  const form='<form id="reviews-import">'+field("Attach to evidence","review-evidence",selectRecords("review-evidence",rows))+
+    field("Public review reference","review-url",input("review-url","",'type="url" required maxlength="600" placeholder="Public HTTPS source URL"'))+
+    '<div class="split-field">'+field("Published date if known","review-date",input("review-date","",'type="date"'))+
+    field("Rating if known","review-rating",input("review-rating","",'type="number" min="1" max="5"'))+'</div>'+
+    field("Review text","review-text",textArea("review-text","",'required maxlength="1500" placeholder="Paste publicly accessible text without personal details"'))+
+    submit("Record review reference")+statusSlot+'</form>';
+  const history=currentObservations(record).filter(row=>row.kind==="reviews");
+  const reviews=history.flatMap(row=>row.results);
+  return heading("Public review analysis","Record public references and investigate complaint topics and repeat wording.")+
+    box("Source handling","References and text are supplied by an analyst. Opinions and allegations need independent corroboration.")+
+    '<div class="grid">'+panel("Add public reference",form)+panel("Recorded coverage",term("References",reviews.length)+
+      term("Latest topics",JSON.stringify(packet?.topics||{}))+term("Latest sentiment",JSON.stringify(packet?.sentiment||{}))+
+      term("Risk contribution",0))+'</div>'+
+    panel("Source records",arrList(reviews,row=>item(row.value,row.source_url,row.source_record_id+" · "+(row.published_at||"Date unavailable")+" · "+row.tone)));
+}
+
+function questionPanel(record) {
+  const payload=state.answers[record?.id];
+  return panel("Ask about this case",'<form id="assistant-question">'+field("Investigator question","question",
+    input("question","",'required minlength="3" maxlength="480" placeholder="Which evidence supports the risk score?"'))+
+    field("Answer language","answer-language",'<select name="answer-language" id="answer-language"><option value="auto">Auto-detect</option><option value="en">English</option><option value="hi">Hindi</option></select>')+
+    submit("Ask investigator assistant")+statusSlot+'</form>'+
+    (payload?'<div class="banner" style="margin-top:9px">'+safe(payload.summary)+'</div>'+
+    arrList(payload.facts,value=>item("Evidence statement",value))+'<div class="chipbar">'+unique(payload.citations,row=>row.evidence_ref).
+    map(row=>evidenceControl(row.evidence_ref)).join("")+'</div>':""));
+}
+
+</script>
+<script>"use strict";
+const storedKey="hex-sentinel-offline-v1";
+const state={cases:[],route:offline?"overview":"login",active:"",evidence:"",role:"",token:"",
+  query:"",caseStage:"",band:"",day:"",node:"",graphMode:"2d",graphs:{},
+  events:[],timers:[],replayCase:"",intel:{},osintQuery:"",explanations:{},ledger:{},aiFixture:false,health:null,
+  observations:{},matches:{},answers:{},risks:{},revisions:{},historyRecords:[],savedSearches:[],historyNext:null,
+  historyFilters:{q:"",kind:"",start:"",end:""},reportProfile:"technical",graphFilter:"",graphQuery:"",focusedEvidence:""};
+const selectedCase=()=>state.cases.find(entry=>entry.id===state.active);
+const shortId=()=>globalThis.crypto.randomUUID().replaceAll("-","").slice(0,12).toUpperCase();
+const screens={overview,cases:casesView,newcase:()=>caseForm(false),case:()=>caseForm(true),message:()=>analyzeView("message"),
+  url:()=>analyzeView("url"),apk:()=>analyzeView("apk"),risk:riskView,sandbox:sandboxView,osint:osintView,
+  reviews:()=>osintView(true),graph:graphView,vault:vaultView,assistant:assistantView,reports:reportsView,
+  intelligence:intelligenceView,system:systemView,audit:()=>systemView(true),login:loginView,domain:domainView,website:websiteView,
+  apps:appsView,campaign:campaignView,history:historyView,reputation:reputationView,analytics:analyticsView,settings:settingsView};
+let graphFocus=null,globeFocus=null,toastTime, requestVersion=0;
+function touchToast(text) {
+  const element=$("#toast");
+  element.textContent=text;
+  element.classList.add("visible");
+  clearTimeout(toastTime);
+  toastTime=setTimeout(()=>element.classList.remove("visible"),4200);
+}
+function persist() {
+  try{localStorage.setItem(storedKey,JSON.stringify(state.cases));}
+  catch{touchToast("Browser storage is unavailable. Changes are retained for this session.");}
+}
+function navButton([route,icon,title]) {
+  const current=state.route===route?' aria-current="page"':"";
+  return '<button class="nav-item" data-action="route" data-id="'+route+'" '+current+'><span class="nav-icon" aria-hidden="true">'+icon+'</span><span>'+title+'</span></button>';
+}
+function paint() {
+  const title=ROUTES.find(item=>item[0]===state.route)?.[2]||({newcase:"New investigation",case:"Case record",login:"Access control"})[state.route];
+  $("#rail").innerHTML='<button class="brand btn ghost" data-action="route" data-id="overview"><span class="brandmark">H</span><span><strong>HEX SENTINEL AI</strong><small>INVESTIGATION DESK / 2.0</small></span></button>'+
+    (offline||state.role?NAV.map(([heading,entries])=>'<div class="nav-label">'+heading+'</div><nav aria-label="'+heading+'">'+entries.map(navButton).join("")+'</nav>').join(""):"")+
+    '<div class="rail-footer"><div class="status-tile small"><span class="status-dot"></span>'+safe(offline?"Offline demo ready":state.health?.service==="ready"?"Local service ready":"Local service pending")+
+    '<br><span class="quiet">PS01 · Evidence workspace</span></div></div>';
+  $("#topbar").innerHTML='<div class="row">'+btn("☰ Menu","menu",'aria-controls="rail"',"menu-button")+
+    '<span class="crumb">Investigation workspace <b>/ &nbsp;'+safe(title)+'</b></span></div><div class="top-right">'+
+    ((offline||state.role)?'<button class="btn search-button" data-action="search">Search workspace <kbd>Ctrl K</kbd></button>':"")+
+    (offline?pill("Offline demo","demo"):state.role?pill(state.role,"live"):pill("Access locked"))+
+    ((offline||state.role)?link("New case","newcase","primary"):"")+'</div>';
+  $("#work").innerHTML=screens[state.route]();
+  if(state.route==="overview") cameraArt($("#hero-art"));
+  if(state.route==="analytics")globeFocus=globeDisplay($("#threat-globe"),state.cases);
+  if(state.route==="intelligence") paintLocations($("#location-canvas"),state.cases);
+  if(state.route==="graph"){
+    const data=graphSelection(selectedCase());
+    graphFocus=drawGraph($("#graph-canvas"),data,state.graphMode,selectNode);
+    if(state.node)graphFocus(state.node);
+  }
+}
+function active(id) {
+  if(state.active===id)return;
+  state.active=id;
+  state.evidence="";
+  state.node="";
+  state.osintQuery="";
+  state.aiFixture=false;
+  resetReplay();
+}
+function selectRoute(route,{preset=true}={}) {
+  return show(route,preset);
+}
+async function show(route,preset=true,updateHash=true) {
+  if(!Object.hasOwn(screens,route))route="overview";
+  if(!offline&&!state.role&&route!=="system")route="login";
+  if(offline&&preset){
+    const types={message:["message","email"],url:["website","url","app_store"],apk:["apk"],apps:["apk"],sandbox:["website"],website:["website"]}[route];
+    if(types && selectedCase()?.id?.match(/^HEX-\d{4}$/) && !selectedCase()?.evidence?.some(entry=>types.includes(entry.kind))){
+      active(state.cases.find(entry=>entry.evidence?.some(item=>types.includes(item.kind)))?.id||state.active);
+    }
+  }
+  state.route=route;
+  const version=++requestVersion;
+  if(updateHash && location.hash!=="#"+route) history.pushState(null,"","#"+route);
+  paint();
+  document.documentElement.scrollTop=0;
+  $("#work").focus({preventScroll:true});
+  if(!offline&&state.role&&state.active){
+    try {
+      if(route==="graph"||route==="intelligence"){
+        state.graphs[state.active]=await api("/cases/"+state.active+"/graph");
+      }else if(route==="audit"){
+        state.ledger[state.active]=await api("/cases/"+state.active+"/audit");
+      }else if(route==="campaign"){
+        state.matches[state.active]=await api("/cases/"+state.active+"/matches");
+      }else if(route==="risk"){
+        state.risks[state.active]=await api("/cases/"+state.active+"/risk");
+      }else if(["osint","assistant","domain","website","apps","reviews","reputation"].includes(route)){
+        const id=state.active, collection=await api("/cases/"+id+"/enrichment");
+        state.observations[id]=collection;
+        if(route==="osint")state.intel[id]=collection.filter(entry=>entry.kind==="osint").at(-1);
+        if(route==="assistant")state.explanations[id]=collection.filter(entry=>entry.kind==="explanation").at(-1);
+      }else if(route==="history"){
+        state.savedSearches=await api("/history/saved");
+        await loadStoredHistory();
+      }else return;
+      if(version===requestVersion)paint();
+    }catch(error){touchToast(error.message);}
+  }
+}
+function setEntry(record) {
+  const index=state.cases.findIndex(entry=>entry.id===record.id);
+  if(index<0)state.cases.unshift(record);
+  else state.cases[index]={...state.cases[index],...record};
+  return state.cases.find(entry=>entry.id===record.id);
+}
+async function openCase(id,route="case") {
+  if(!id){active("");return show(route,false);}
+  if(!offline)setEntry(await api("/cases/"+id));
+  active(id);
+  await show(route,false);
+}
+function selectNode(id) {
+  state.node=id;
+  const data=graphSelection(selectedCase());
+  if($("#graph-select"))$("#graph-select").value=id;
+  if($("#node-detail"))$("#node-detail").innerHTML=nodeDetail(data,data.nodes.find(node=>node.id===id));
+  if(graphFocus)graphFocus(id);
+}
+function graphData(record) {
+  if(!record)return {nodes:[],edges:[],related_cases:[]};
+  if(!offline)return state.graphs[record.id]||{nodes:[],edges:[],related_cases:[]};
+  const signature=entry=>entry.type+" "+entry.value;
+  const nodes=unique(record.evidence.flatMap(entry=>entry.analysis.indicators),signature).map((entry,index)=>
+    ({id:"demo-"+index,type:entry.type,value:entry.value}));
+  const keys=new Map(nodes.map(node=>[signature(node),node.id]));
+  const edges=state.cases.flatMap(other=>(other.evidence||[]).flatMap(entry=>entry.analysis.indicators.
+    filter(ind=>keys.has(signature(ind))).map(ind=>({...ind,id:keys.get(signature(ind)),case_id:other.id,
+    relation:"observed_in",confidence:"direct"}))));
+  return {nodes,edges,related_cases:[...new Set(edges.map(edge=>edge.case_id).filter(id=>id!==record.id))]};
+}
+async function api(path,init={}) {
+  const headers=new Headers(init.headers||{});
+  if(state.token)headers.set("Authorization","Bearer "+state.token);
+  if(init.body&&!(init.body instanceof FormData))headers.set("Content-Type","application/json");
+  const response=await fetch("/api"+path,{...init,headers,cache:"no-store"});
+  if(!response.ok){
+    const out=await response.json().catch(()=>({}));
+    const detail=Array.isArray(out.detail)?out.detail.map(entry=>entry.msg).join(". "):out.detail;
+    throw Error(detail||"Request failed ("+response.status+").");
+  }
+  return response.json();
+}
+const request=(path,body,method="POST")=>api(path,{method,body:body instanceof FormData?body:JSON.stringify(body)});
+async function reloadCases() {
+  const cases=await api("/cases");
+  state.cases=cases.map(record=>({...state.cases.find(entry=>entry.id===record.id),...record}));
+  if(!state.active&&cases[0]){active(cases[0].id);setEntry(await api("/cases/"+state.active));}
+}
+async function getHealth() {
+  state.health=await api("/system/health");
+  paint();
+}
+const replayEvidence=record=>record?.evidence?.find(entry=>entry.analysis.details.host==="wallet-review.example");
+function replayRecords(record){
+  const evidence_ref=replayEvidence(record)?.id||"EV-DEMO-05";
+  return HEX_EVENTS.map(([offset_ms,category,source,destination,method,status_code,detail,severity],index)=>
+    ({id:"SBX-DEMO-"+(index+1),timestamp:new Date(Date.parse("2026-11-22T05:47:00Z")+offset_ms).toISOString(),
+      offset_ms,category,source,destination,method,status_code,detail,severity,evidence_ref,status:"fixture",provenance:"synthetic"}));
+}
+function resetReplay() {
+  state.timers.forEach(clearTimeout);state.timers=[];state.events=[];state.replayCase="";
+}
+async function playReplay() {
+  resetReplay();
+  const record=selectedCase();
+  let records=offline?replayRecords(record):null;
+  if(!offline){
+    const fixture=replayEvidence(record);
+    if(!record?.synthetic||!fixture)throw Error("Use a synthetic case with the wallet-review.example website evidence.");
+    const created=await request("/sandbox/run",{case_id:record.id,evidence_id:fixture.id});
+    records=(await api("/sandbox/"+created.job_id+"/events?case_id="+record.id)).events;
+  }
+  state.replayCase=record?.id||"";
+  paint();
+  $("#play").disabled=true;
+  records.forEach((entry,index)=>state.timers.push(setTimeout(()=>{
+    state.events.push(entry);
+    if($("#event-list"))$("#event-list").innerHTML=eventRows();
+    if($("#event-count"))$("#event-count").innerHTML=pill(state.events.length+" events","demo");
+    if(index===records.length-1&&$("#play"))$("#play").disabled=false;
+  },entry.offset_ms)));
+}
+function demoReport(record){
+  const evidence=record.evidence||[],risk=riskOf(record);
+  return {provenance:"offline demonstration",profile:state.reportProfile,report_version:"2.0",case_id:record.id,title:record.title,case_status:record.status,analyst_notes:record.notes,
+    generated_at:now(),summary:risk?"Highest evidence assessment "+risk.score+"/100 ("+risk.band+"). Independent verification required.":"This case has no assessed evidence.",
+    evidence:evidence.map(({text,analysis,...entry})=>entry),analysis:evidence.map(entry=>entry.analysis),
+    sandbox:record.type==="website"?replayRecords(record):[],osint:record.complaint?[{provenance:"synthetic",claim:record.complaint,
+    url:"https://complaints.example/"+record.id.toLowerCase(),corroboration:"none",retrieval:"fixture only",evidence_ref:evidence[0]?.id}]:[],
+    reviews:fixtureReviews(record),graph:graphData(record),campaign_matches:offlineMatches(record),domain_fixture:domainFixture(record),
+    explanation:{mode:"deterministic",references:risk?.contributions.map(entry=>entry.evidence_ref)||[]},
+    limitations:["Offline demonstration. No live browser, reputation query, or model inference.",
+    "Risk prioritises analyst review. Exact overlap establishes co-occurrence."],
+    recommendations:["Preserve the acquired original and verify independent source records.","Confirm payment destination and claimed identity through a trusted channel."],
+    custody:evidence.map(entry=>({action:"demo acquisition",timestamp:entry.created_at,evidence_ref:entry.id,sha256:entry.sha256}))};
+}
+function exportDemo(record,format) {
+  const report=demoReport(record);
+  const name=record.id+"-"+state.reportProfile+"-demo";
+  if(format==="json"){saveFile(JSON.stringify(report,null,2),format,name);return;}
+  if(format==="csv"){
+    const rows=[["case_id","evidence_id","indicator_type","value"],...report.analysis.flatMap(value=>value.indicators.map(row=>[record.id,row.evidence_ref,row.type,row.value]))];
+    const quote=value=>'"'+String(value).replace(/^([=+@-])/,"'$1").replaceAll('"','""')+'"';
+    saveFile(rows.map(row=>row.map(quote).join(",")).join("\r\n"),format,name);return;
+  }
+  if(format==="html"){
+    const content='<!doctype html><meta charset="utf-8"><title>HEX SENTINEL AI</title><style>body{font:16px system-ui;max-width:65em;margin:2em auto;padding:1em}</style>'+
+      '<h1>'+safe(record.title)+'</h1><p>HEX SENTINEL AI · '+safe(state.reportProfile)+' · Offline demonstration</p><p>'+safe(report.summary)+'</p>'+
+      '<h2>Evidence</h2><ul>'+report.evidence.map(it=>'<li>'+safe(it.id+" · "+it.filename+" · "+it.sha256)+'</li>').join("")+
+      '</ul><h2>Limitations</h2><ul>'+report.limitations.map(value=>'<li>'+safe(value)+'</li>').join("")+'</ul>';
+    saveFile(content,format,name);return;
+  }
+  const content=[
+    [state.reportProfile==="technical"?"Technical case overview":"Executive case overview",[record.id+" / "+record.title,"Provenance: OFFLINE DEMO / FICTIONAL FIXTURES",report.summary]],
+    ["Evidence inventory and SHA-256",report.evidence.map(entry=>entry.id+" / "+entry.filename+" / "+entry.source+" / "+(entry.sha256||"unavailable"))],
+    ["Static findings",report.analysis.flatMap(analysis=>analysis.findings.map(entry=>entry.rule_id+" / "+entry.evidence_ref+" / "+entry.title+" / "+entry.snippet))],
+    ["Extracted identifiers",report.analysis.flatMap(analysis=>analysis.indicators.map(entry=>entry.type+" / "+entry.value+" / "+entry.evidence_ref))],
+    ["Sandbox observations",report.sandbox.map(entry=>"Synthetic / "+entry.id+" / "+entry.category+" / "+entry.evidence_ref)],
+    ["OSINT and source references",report.osint.map(entry=>"Synthetic / "+entry.claim+" / "+entry.url)],
+    ["Public review analysis",report.reviews.map(entry=>"Synthetic / "+entry.stance+" / "+entry.published_at+" / "+entry.text)],
+    ["Risk explanation",report.analysis.flatMap(analysis=>[analysis.risk.score+"/100 / "+analysis.risk.band+" / "+analysis.risk.confidence+" confidence",
+      ...analysis.risk.contributions.map(entry=>"+"+entry.weight+" / "+entry.rule_id+" / "+entry.evidence_ref),...analysis.risk.missing.map(value=>"Missing / "+value)])],
+    ["Historical case correlations",report.campaign_matches.map(row=>row.match_id+" / "+row.related_case_id+" / "+row.similarity+" of 100 similarity")],
+    ["Domain intelligence fixture",report.domain_fixture?.timeline.map(row=>row.type+" / "+row.at+" / "+row.record_id)||[]],
+    ["Entity relationship evidence",report.graph.edges.map(entry=>entry.case_id+" / "+entry.evidence_ref+" / "+entry.value)],
+    ["Deterministic explanation",[report.summary]],["Limitations and uncertainty",report.limitations],
+    ["Investigation recommendations",report.recommendations],
+    ["Custody demonstration",report.custody.map(entry=>entry.timestamp+" / "+entry.action+" / "+entry.evidence_ref)],
+  ];
+  const selected=state.reportProfile==="technical"?content:content.filter(([label])=>
+    !["Sandbox observations","Custody demonstration","Entity relationship evidence","Domain intelligence fixture","Static findings"].includes(label));
+  saveFile(makePDF(selected.map(([label,lines])=>[label,lines.length?lines:["No records in this demo section."]])),format,name);
+}
+function commandSearch(query="") {
+  const dialog=$("#command");
+  if(!dialog.open){
+    dialog.innerHTML='<div class="panel-title"><h2>Search workspace</h2>'+btn("Close","search-close")+'</div>'+
+      field("Find a tool or case","command-query",input("command-query","",'placeholder="Try risk, sandbox or electricity"'))+
+      '<div class="search-results" id="command-results"></div>';
+    dialog.showModal();$("#command-query").focus();
+  }
+  const needle=query.trim().toLowerCase();
+  const matches=ROUTES.filter(([, ,title])=>title.toLowerCase().includes(needle));
+  const cases=state.cases.filter(record=>(record.id+" "+record.title).toLowerCase().includes(needle)).slice(0,8);
+  $("#command-results").innerHTML=matches.map(navButton).join("")+cases.map(record=>'<button class="nav-item" data-action="open" data-id="'+safe(record.id)+'"><span aria-hidden="true" class="nav-icon">▣</span><span>'+
+    safe(record.title+" · "+record.id)+'</span></button>').join("")||empty("No matching tools or cases.");
+}
+
+</script>
+<script>"use strict";
+async function analyzeSubmission(form,data) {
+  const record=selectedCase();
+  if(!record)throw Error("Create or select a case before submitting evidence.");
+  const route=form.dataset.route;
+  if(route==="apk"){
+    data.append("case_id",record.id);
+    data.set("notes",data.get("evidence-notes")||"");
+    const output=await request("/analyze/apk",data);
+    setEntry(await api("/cases/"+record.id));
+    state.evidence=output.evidence_id;
+    paint();
+    return output.duplicate?"Duplicate evidence · "+output.evidence_id:"APK retained · "+output.evidence_id;
+  }
+  const text=String(data.get("analysis-text")||"");
+  if(!text.trim())throw Error("Enter text or a URL.");
+  const format=data.get("analysis-kind");
+  const kind=format==="auto"?detect(text):format;
+  if(route==="message"&&!["message","email"].includes(kind))throw Error("Use URL and domain analysis for addresses.");
+  if(!offline){
+    const output=await request("/analyze/"+(route==="url"&&kind==="website"?"website":route),{
+      case_id:record.id,text,kind:route==="url"&&kind==="message"?"auto":kind,source:data.get("source")||"Analyst submission",
+      notes:data.get("evidence-notes")||""});
+    setEntry(await api("/cases/"+record.id));
+    state.evidence=output.evidence_id;
+    paint();
+    return output.duplicate?"Duplicate evidence · "+output.evidence_id:"Evidence retained · "+output.evidence_id;
+  }
+  const hash=await digest(text);
+  const duplicate=record.evidence.find(entry=>hash?entry.sha256===hash:entry.text===text);
+  if(duplicate){state.evidence=duplicate.id;paint();return "Evidence already present · "+duplicate.id;}
+  const id="EV-DEMO-"+shortId(), finalKind=route==="url"&&kind==="message"?"url":kind;
+  const analysis=analyzeOffline(finalKind,text,id);
+  record.evidence.push({id,kind:finalKind,text,sha256:hash,source:"Offline analyst input",filename:finalKind==="email"?"input.eml":"input.txt",
+    disposition:"offline demonstration",created_at:now(),analysis});
+  state.evidence=id;
+  persist();paint();
+  return "Offline evidence analysed · "+id;
+}
+async function saveCase(formId,values){
+  const payload={title:values.get("title").trim(),priority:values.get("priority"),notes:values.get("notes"),
+    tags:values.get("tags").split(",").map(value=>value.trim().slice(0,40)).filter(Boolean).slice(0,12)};
+  if(payload.title.length<3)throw Error("Enter a case title with at least three characters.");
+  const editing=formId==="case-edit",current=selectedCase();
+  let result;
+  if(editing)payload.status=values.get("status");
+  else payload.synthetic=offline||values.get("synthetic")==="true";
+  if(offline){
+    result=editing?{...current,...payload}:{...payload,id:"HEX-DEMO-"+shortId(),status:"Open",created_at:now(),evidence:[]};
+    setEntry(result);persist();
+  }else{
+    result=await request(editing?"/cases/"+current.id:"/cases",payload,editing?"PATCH":"POST");
+    setEntry(result);
+  }
+  await openCase(result.id);
+  return editing?"Case updated":"Case created";
+}
+async function submitForm(form) {
+  const data=new FormData(form),record=selectedCase();
+  if(form.id==="case-filter"){
+    state.query=data.get("case-query");state.caseStage=data.get("case-stage");state.band=data.get("case-band");paint();return;
+  }
+  if(form.id==="login-form"){
+    state.token=data.get("token");
+    try{
+      state.role=(await api("/session")).role;
+      await reloadCases();await show("overview");
+      return "Signed in as "+state.role;
+    }catch(error){
+      state.token="";state.role="";throw error;
+    }
+  }
+  if(form.id==="case-create"||form.id==="case-edit")return saveCase(form.id,data);
+  if(form.id==="analyze")return analyzeSubmission(form,data);
+  if(form.id==="upload-evidence"){
+    if(!record)throw Error("Select a case before uploading evidence.");
+    data.set("case_id",record.id);data.set("source",data.get("upload-source"));data.set("notes",data.get("upload-notes"));
+    const response=await request("/evidence/upload",data);
+    setEntry(await api("/cases/"+record.id));paint();
+    return (response.duplicate?"Duplicate evidence · ":"Evidence retained · ")+response.evidence_id;
+  }
+  if(form.id==="osint-form"){
+    if(offline){
+      state.osintQuery=data.get("indicator")||"";
+      const term=state.osintQuery.trim().toLowerCase();
+      const match=term&&state.cases.find(candidate=>[candidate.domain,candidate.title,candidate.tag].some(value=>value?.toLowerCase().includes(term)));
+      if(match){const query=state.osintQuery;active(match.id);state.osintQuery=query;}
+      paint();return;
+    }
+    const selection=$("#indicator")?.selectedOptions[0];
+    if(!record||!selection)throw Error("Select a case with a domain indicator first.");
+    state.intel[record.id]=await request("/osint/search",{case_id:record.id,evidence_id:selection.dataset.ref,indicator:selection.value});
+    paint();return "DNS lookup status · "+state.intel[record.id].status;
+  }
+  return submitAdvanced(form,data,record);
+}
+async function handleAction(action,id,control) {
+  const record=selectedCase();
+  if($("#command").open&&!["search","search-close"].includes(action))$("#command").close();
+  switch(action) {
+    case "route": return show(id);
+    case "open": return openCase(id);
+    case "menu": $("#rail").classList.toggle("open");return;
+    case "search": return commandSearch();
+    case "search-close": return $("#command").close();
+    case "day": state.day=state.day===id?"":id;return paint();
+    case "filter-risk": state.band=id;state.query="";state.caseStage="";return show("cases");
+    case "clear-filters": state.query="";state.band="";state.caseStage="";return paint();
+    case "sample-case": return openCase(id,state.route);
+    case "fill-sample": {
+      const fixture=HEX_DEMO.find(entry=>entry.id===id);
+      $("#analysis-text").value=fixture.input;
+      $("#analysis-kind").value=fixture.type==="website"?"website":"auto";
+      $("#analysis-text").focus();
+      return;
+    }
+    case "graph-mode": state.graphMode=id;paint();$("#work [data-action='graph-mode'][aria-pressed='true']")?.focus();return;
+    case "reset-replay": resetReplay();return paint();
+    case "play": return playReplay();
+    case "explain":
+      if(!record)throw Error("Select a case before requesting an explanation.");
+      if(offline)state.aiFixture=true;
+      else state.explanations[record.id]=await request("/explain",{case_id:record.id,use_local_model:true});
+      return paint();
+    case "health":
+      if(offline){touchToast("Offline workspace ready. Integrations are unavailable.");return;}
+      await getHealth();touchToast("System state refreshed.");return;
+    case "verify": {
+      const result=await api("/evidence/"+id+"/verify");
+      touchToast(result.valid?"Original SHA-256 matches the acquisition record.":"Integrity mismatch. Review this evidence item.");
+      return;
+    }
+    case "report":
+      if(!record)throw Error("Select a case before exporting.");
+      if(offline)exportDemo(record,id);
+      else {
+        const report=await request("/reports/generate",{case_id:record.id,format:id,profile:state.reportProfile,browser_transport:true});
+        if(report.encoding!=="base64"||!report.content)throw Error("The service returned an empty or unsupported report.");
+        const bytes=Uint8Array.from(atob(report.content),letter=>letter.charCodeAt(0));
+        saveFile(new Blob([bytes],{type:report.media_type}),id,report.filename.replace(/\.(pdf|json|csv|html)$/,""));
+      }
+      touchToast(id.toUpperCase()+" report downloaded.");return;
+    case "demo-login": return show("overview",false);
+    case "logout":
+      state.token="";state.role="";state.cases=[];state.explanations={};state.graphs={};state.ledger={};state.intel={};
+      state.observations={};state.matches={};state.answers={};state.risks={};state.revisions={};state.historyRecords=[];
+      state.savedSearches=[];state.historyFilters={q:"",kind:"",start:"",end:""};state.focusedEvidence="";active("");
+      return show("login",false);
+    default: return advancedAction(action,id,control,record);
+  }
+}
+document.addEventListener("click",async event=>{
+  const control=event.target.closest("[data-action]");
+  if(!control)return;
+  if(control.dataset.action!=="menu")$("#rail").classList.remove("open");
+  try{control.disabled=true;await handleAction(control.dataset.action,control.dataset.id,control);}
+  catch(error){touchToast(error.message||"The action could not complete.");}
+  finally{control.disabled=false;}
+});
+document.addEventListener("submit",async event=>{
+  event.preventDefault();
+  const form=event.target, button=$('button[type="submit"]',form),status=$("[data-form-status]",form);
+  if(button)button.disabled=true;
+  if(status)status.textContent="Working…";
+  try{
+    const notice=await submitForm(form);
+    if(notice)touchToast(notice);
+    if(status)status.textContent=notice||"";
+  }catch(error){
+    const message=error.message||"The request could not complete.";
+    if(status)status.textContent=message;
+    else touchToast(message);
+  }finally{if(button)button.disabled=false;}
+});
+document.addEventListener("change",event=>{
+  const target=event.target;
+  if(target.id==="active-case")openCase(target.value,state.route).catch(error=>touchToast(error.message));
+  if(target.id==="evidence-select"){state.evidence=target.value;paint();$("#evidence-select")?.focus();}
+  if(target.id==="graph-select")selectNode(target.value);
+  if(target.id==="graph-filter"){state.graphFilter=target.value;state.node="";paint();$("#graph-filter")?.focus();}
+  if(target.id==="graph-query"){state.graphQuery=target.value;state.node="";paint();$("#graph-query")?.focus();}
+  if(target.id==="report-profile"){state.reportProfile=target.value;paint();$("#report-profile")?.focus();}
+});
+document.addEventListener("input",event=>{if(event.target.id==="command-query")commandSearch(event.target.value);});
+document.addEventListener("keydown",event=>{
+  if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="k"&&(offline||state.role)){
+    event.preventDefault();commandSearch();
+  }
+  if(event.key==="Enter"&&event.target.id==="command-query"){
+    event.preventDefault();$("#command-results button")?.click();
+  }
+});
+window.addEventListener("hashchange",()=>show(location.hash.slice(1),true,false));
+async function initialize(){
+  if(offline){
+    try{state.savedSearches=JSON.parse(localStorage.getItem("hex-saved-search")||"[]");}catch{}
+    try{
+      const saved=localStorage.getItem(storedKey);
+      if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed))state.cases=parsed;}
+    }catch{}
+    if(!state.cases.length)state.cases=seedCases();
+    active(state.cases[0].id);
+    state.role="Demo analyst";
+    await Promise.all(state.cases.flatMap(entry=>entry.evidence.map(async item=>{
+      if(!item.sha256&&typeof item.text==="string")item.sha256=await digest(item.text);
+    })));
+    await show(location.hash.slice(1)||"overview",true,false);
+  }else{
+    await show("login",false,false);
+    getHealth().catch(error=>touchToast(error.message));
+  }
+}
+initialize().catch(error=>{ $("#work").textContent="Workspace initialization failed. "+error.message; });
+
+</script>
+<script>"use strict";
+async function refreshObservations(record){
+  state.observations[record.id]=await api("/cases/"+record.id+"/enrichment");
+  if(state.active===record.id)paint();
+}
+async function loadStoredHistory(offset=0){
+  const query=new URLSearchParams({...state.historyFilters,offset:String(offset)});
+  for(const [key,value] of [...query])if(!value)query.delete(key);
+  const output=await api("/history?"+query);
+  state.historyRecords=offset?[...state.historyRecords,...output.records]:output.records;
+  state.historyNext=output.next_offset;
+}
+function assistantFixture(query,language,record){
+  const hi=language==="hi"||/[\u0900-\u097f]/.test(query),risk=riskOf(record),score=risk?.score??0;
+  const wantsRisk=/risk|score|जोखिम|स्कोर/i.test(query);
+  const facts=wantsRisk?(risk?.contributions||[]).map(rule=>"+"+rule.weight+" · "+rule.title):
+    (record.evidence||[]).flatMap(ev=>ev.analysis.indicators.map(row=>row.type+" · "+row.value));
+  return {summary:hi?(wantsRisk?"इस नमूने का जाँच स्कोर "+score+"/100 है।":"ये पहचानकर्ता काल्पनिक साक्ष्य में मिले हैं।"):
+    wantsRisk?"The fixture assessment is "+score+"/100. These rules contribute to the result.":"The case evidence contains the following fixture identifiers.",
+    facts,citations:(record.evidence||[]).map(ev=>({evidence_ref:ev.id})),mode:"synthetic workflow"};
+}
+async function submitAdvanced(form,data,record){
+  if(!record&&["domain-query","live-observe","app-identity","listing-query","reviews-import","assistant-question"].includes(form.id))
+    throw Error("Select a case first.");
+  const value=key=>String(data.get(key)||"").trim(),select=id=>$("#"+id)?.selectedOptions[0],case_id=record?.id;
+  switch(form.id){
+    case "domain-query": {
+      const selected=select("domain-host");
+      if(!selected?.dataset.ref)throw Error("Choose an observed hostname.");
+      await request("/domain/lookup",{case_id,evidence_id:selected.dataset.ref,indicator:selected.value,
+        sources:data.getAll("sources"),consent:data.has("consent")});
+      await refreshObservations(record);return "Source observations recorded";
+    }
+    case "live-observe": {
+      const selected=select("observe-url");
+      if(!selected?.dataset.ref)throw Error("Choose the submitted URL.");
+      let result=await request("/website/jobs",{case_id,evidence_id:selected.dataset.ref,consent:data.has("consent")});
+      for(let checks=0;checks<75&&["queued","running"].includes(result.status);checks++){
+        const status=form.querySelector("[data-form-status]");
+        if(status)status.textContent="Document observation · "+result.status;
+        await new Promise(resolve=>setTimeout(resolve,1500));
+        if(!state.token)return;
+        result=await api("/website/jobs/"+result.id);
+      }
+      await refreshObservations(record);return "Document observation · "+result.status;
+    }
+    case "app-identity": {
+      const result=await request("/analyze/app",{case_id,text:value("app-name"),source:"Analyst-supplied application identifier"});
+      setEntry(await api("/cases/"+case_id));paint();
+      return (result.duplicate?"Identifier already recorded · ":"App identifier acquired · ")+result.evidence_id;
+    }
+    case "listing-query": {
+      const selected=select("listing-package");
+      if(!selected?.dataset.ref)throw Error("Choose an observed Android package.");
+      await request("/apps/lookup",{case_id,evidence_id:selected.dataset.ref,indicator:selected.value,consent:data.has("consent")});
+      await refreshObservations(record);return "Catalogue lookup recorded";
+    }
+    case "reviews-import": {
+      await request("/reviews/import",{case_id,evidence_id:value("review-evidence"),items:[{source_url:value("review-url"),text:value("review-text"),
+        published_at:value("review-date")||null,rating:value("review-rating")?Number(value("review-rating")):null}]});
+      await refreshObservations(record);return "Public reference recorded";
+    }
+    case "assistant-question": {
+      const query=value("question"),language=value("answer-language");
+      state.answers[case_id]=offline?assistantFixture(query,language,record):await request("/assistant/question",{case_id,query,language});
+      paint();return "Cited answer ready";
+    }
+    case "history-form": {
+      state.historyFilters={q:value("history-q"),kind:value("history-kind"),start:value("history-start"),end:value("history-end")};
+      if(state.historyFilters.start&&state.historyFilters.end&&state.historyFilters.start>state.historyFilters.end)throw Error("Choose an end date after the start date.");
+      if(!offline)await loadStoredHistory();
+      paint();return "Historical results ready";
+    }
+  }
+}
+async function advancedAction(action,id,control,record){
+  switch(action) {
+    case "save-history": {
+      const {q,kind,start,end}=state.historyFilters,label=q||kind||"All evidence";
+      if(offline){
+        state.savedSearches.unshift({id:"FIND-DEMO-"+shortId(),label,query:q,filters:{kind,start,end}});
+        try{localStorage.setItem("hex-saved-search",JSON.stringify(state.savedSearches.slice(0,30)));}catch{}
+      } else {
+        const row=await request("/history/saved",{label:(label.length<3?"Query "+label:label).slice(0,60),query:q,kind,start:start||null,end:end||null});
+        state.savedSearches.unshift(row);
+      }
+      paint();touchToast("Search saved");return;
+    }
+    case "saved-history": {
+      const row=state.savedSearches.find(value=>value.id===id);
+      if(!row)return;
+      state.historyFilters={q:row.query,kind:row.filters.kind,start:row.filters.start||"",end:row.filters.end||""};
+      if(!offline)await loadStoredHistory();
+      paint();return;
+    }
+    case "next-history":
+      if(state.historyNext!=null){await loadStoredHistory(state.historyNext);paint();}
+      return;
+    case "evidence-link":
+      state.focusedEvidence=id;
+      return show("vault",false);
+    case "revision-history":
+      state.focusedEvidence=id;
+      state.revisions[id]=await api("/evidence/"+id+"/history");paint();return;
+    case "reanalyze": {
+      const result=await request("/evidence/"+id+"/reanalyze",{});
+      setEntry(await api("/cases/"+record.id));
+      state.revisions[id]=await api("/evidence/"+id+"/history");
+      state.focusedEvidence=id;paint();touchToast("Analysis revision "+result.revision+" recorded");return;
+    }
+    case "globe":
+      if(id==="list"){
+        $("#globe-locations").setAttribute("tabindex","-1");$("#globe-locations").focus();
+      }else globeFocus?.(id);
+      return;
+    case "graph-camera":
+      graphFocus?.camera(id);return;
+  }
+}
+
+</script></body>
+</html>
